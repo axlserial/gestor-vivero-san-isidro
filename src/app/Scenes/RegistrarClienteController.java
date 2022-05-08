@@ -39,7 +39,7 @@ public class RegistrarClienteController {
 
 	@FXML
 	private void openPrincipal(ActionEvent event) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("../homepage.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/app/Homepage.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
