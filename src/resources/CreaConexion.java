@@ -11,7 +11,7 @@ public class CreaConexion {
 
 	public CreaConexion() {
 		String conexion = "jdbc:sqlite::resource:";
-		conexion += getClass().getResource("/resources/").toExternalForm() + "database.db";
+		conexion += getClass().getResource("/resources/").toExternalForm() + "invernadero.db";
 		
 		try {
 			c = DriverManager.getConnection(conexion);

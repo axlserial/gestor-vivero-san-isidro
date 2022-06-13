@@ -16,6 +16,7 @@ public class InterfazHomepage {
 
 	private Scene escena;
 	public Button registrarCliente;
+	public Button registrarPedido;
 
 	public InterfazHomepage(){
 
@@ -27,8 +28,15 @@ public class InterfazHomepage {
 		registrarCliente.setCursor(Cursor.HAND);
 		registrarCliente.setFont(new Font("Segoe UI Semibold", 14.0));
 
+		registrarPedido = new Button("Registrar Pedido");
+		registrarPedido.setPrefHeight(75.0);
+		registrarPedido.setPrefWidth(294.0);
+		registrarPedido.setStyle("-fx-background-color: #A6634B;");
+		registrarPedido.setTextFill(Color.WHITE);
+		registrarPedido.setCursor(Cursor.HAND);
+		registrarPedido.setFont(new Font("Segoe UI Semibold", 14.0));
 
-		VBox literal = new VBox(registrarCliente);
+		VBox literal = new VBox(registrarCliente, registrarPedido);
 		literal.setLayoutY(-29.0);
 		literal.setPrefHeight(720.0);
 		literal.setPrefWidth(294.0);
