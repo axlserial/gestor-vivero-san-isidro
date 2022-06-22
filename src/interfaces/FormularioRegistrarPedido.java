@@ -350,11 +350,16 @@ public class FormularioRegistrarPedido {
 		thl.setLayoutX(26.0);
 		thl.setLayoutY(29.0);
 
-		ChoiceBox tiposHortaliza = new ChoiceBox<>();
+		ChoiceBox<String> tiposHortaliza = new ChoiceBox<>();
 		tiposHortaliza.setLayoutX(26.0);
 		tiposHortaliza.setLayoutY(47.0);
 		tiposHortaliza.setPrefHeight(26.0);
 		tiposHortaliza.setPrefWidth(300.0);
+
+		tiposHortaliza.getItems().addAll("Tipo 1");
+		tiposHortaliza.getItems().addAll("Tipo 2");
+		tiposHortaliza.getItems().addAll("Tipo 3");
+		tiposHortaliza.getSelectionModel().selectFirst();
 		/////
 
 		Label tvl = new Label("Variedad");

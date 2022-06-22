@@ -3,9 +3,12 @@ package controladores;
 import interfaces.FormularioRegistrarPedido;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -60,13 +63,26 @@ public class ControladorRegistrarPedido {
 		});
 
 		registrar.setOnAction(e -> {
-			// registrar();
+			registrar();
 		});
 
 		cancelar.setOnAction(e -> {
 			escenario.setScene(anterior);
 		});
 
+	}
+
+	void registrar() {
+		plantas.getTabs().forEach(t -> {
+			AnchorPane formulario = (AnchorPane)t.getContent();
+			
+			ChoiceBox<String> tipoHortaliza = (ChoiceBox)formulario.getChildren().get(1);
+			TextField variedad = (TextField)formulario.getChildren().get(3);
+			TextField precioPagar = (TextField)formulario.getChildren().get(6);
+			TextField cantidadCharolas = (TextField)formulario.getChildren().get(9);
+
+			
+		});
 	}
 
 	public Scene getScene(){
