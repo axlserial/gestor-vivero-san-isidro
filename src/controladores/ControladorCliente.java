@@ -137,7 +137,7 @@ public class ControladorCliente {
 		String[] telefonos = {telefono1.getText(), telefono2.getText()};
 		cliente.setTelefonos(telefonos);
 		if (!conexion.guardarCliente(cliente)) {
-			System.err.println("Error al guardar el cliente");
+			interfaz.mensajes.error("Error al guardar el cliente");
 			return;
 		}
 
