@@ -13,6 +13,7 @@ public class ControladorHomepage {
 
 	private Button registrarCliente;
 	private Button registrarPedido;
+	public Button registrarAbono;
 	
 	public ControladorHomepage(Stage escenario){
 		this.escenario = escenario;
@@ -21,6 +22,7 @@ public class ControladorHomepage {
 
 		this.registrarCliente = this.interfaz.registrarCliente;
 		this.registrarPedido = this.interfaz.registrarPedido;
+		this.registrarAbono = this.interfaz.registrarAbono;
 
 		rcc = new ControladorCliente(escenario, this.interfaz.getScene());
 		rp = new ControladorRegistrarPedido(escenario, this.interfaz.getScene());
