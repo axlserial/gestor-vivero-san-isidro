@@ -1,5 +1,13 @@
 package controladores;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import Entidades.Cliente;
+import Entidades.Pedido;
+import conexiones.ConexionClientes;
+import conexiones.ConexionPedido;
 import interfaces.FormularioRegistrarPedido;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,6 +36,12 @@ public class CreacionPedido {
 	private Button principal;
 	private Button registrar;
 	private Button cancelar;
+	
+	private ConexionPedido conexionPedido;
+	private ConexionClientes conexionClientes;
+	private Pedido pedido;
+	private Cliente cliente;
+	private ArrayList<Cliente> clientes;
 
 	public CreacionPedido(Stage escenario, Scene anterior){
 		interfaz = new FormularioRegistrarPedido();
@@ -69,6 +83,28 @@ public class CreacionPedido {
 		cancelar.setOnAction(e -> {
 			escenario.setScene(anterior);
 		});
+
+		// Obtener clientes
+		cliente = new Cliente();
+		conexionClientes = new ConexionClientes();
+		ResultSet resultado = conexionClientes.buscarClientes("");
+		clientes = new ArrayList<Cliente>();
+		if (resultado != null) {
+			try {
+				while(resultado.next()) {
+					String[] datos = new String[5];
+					datos[0] = resultado.getString("nombres");
+					datos[0] = resultado.getString("apellidos");
+					datos[0] = resultado.getString("telefono1");
+					datos[0] = resultado.getString("telefono2");
+					datos[0] = resultado.getString("poblacion");
+					clientes.add(cliente.crearObjeto(resultado.getInt("idCliente"), datos));
+				}
+				System.out.println(clientes);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
 
 	}
 

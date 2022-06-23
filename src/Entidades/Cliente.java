@@ -15,8 +15,15 @@ public class Cliente {
 		poblacion = "";
 	}
 
-	public Cliente crearObjeto(String[] datos) {
-		return new Cliente();
+	public Cliente crearObjeto(int id, String[] datos) {
+		Cliente cliente = new Cliente();
+		cliente.idCliente = id;
+		cliente.nombre = datos[0];
+		cliente.apellidos = datos[1];
+		cliente.telefonos[0] = datos[2];
+		cliente.telefonos[1] = datos[3];
+		cliente.poblacion = datos[4];
+		return cliente;
 	}
 
 	// Getters y Setters

@@ -45,5 +45,16 @@ public class ConexionClientes {
 			return null;
 		}
 	}
+
+	public ResultSet buscarClientes(String nombre) {
+		String consulta = "";
+		consulta = "SELECT * FROM clientes WHERE nombres LIKE '%" + nombre + "%'";
+		try {
+			return conexion.executeQuery(consulta);
+		} catch (SQLException e) {
+			System.err.println(e);
+			return null;
+		}
+	}
 	
 }
