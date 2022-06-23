@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ControladorCliente {
+public class ControladorClientes {
 
 	private FormularioAgregarCliente interfaz;
 	private Button principal;
@@ -30,7 +30,7 @@ public class ControladorCliente {
 	private ConexionClientes conexion;
 	private Cliente cliente;
 
-	public ControladorCliente(Stage escenario, Scene anterior) {
+	public ControladorClientes(Stage escenario, Scene anterior) {
 		interfaz = new FormularioAgregarCliente();
 
 		principal = interfaz.principal;

@@ -8,8 +8,8 @@ public class ControladorHomepage {
 
 	private Stage escenario;
 	private InterfazHomepage interfaz;
-	private ControladorCliente rcc;
-	private ControladorRegistrarPedido rp;
+	private ControladorClientes rcc;
+	private CreacionPedido rp;
 
 	private Button registrarCliente;
 	private Button registrarPedido;
@@ -24,8 +24,8 @@ public class ControladorHomepage {
 		this.registrarPedido = this.interfaz.registrarPedido;
 		this.registrarAbono = this.interfaz.registrarAbono;
 
-		rcc = new ControladorCliente(escenario, this.interfaz.getScene());
-		rp = new ControladorRegistrarPedido(escenario, this.interfaz.getScene());
+		rcc = new ControladorClientes(escenario, this.interfaz.getScene());
+		rp = new CreacionPedido(escenario, this.interfaz.getScene());
 
 		this.registrarCliente.setOnAction(e -> {
 			escenario.setScene(rcc.getScene());

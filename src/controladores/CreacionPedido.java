@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class ControladorRegistrarPedido {
+public class CreacionPedido {
 
 	private FormularioRegistrarPedido interfaz;
 
@@ -29,7 +29,7 @@ public class ControladorRegistrarPedido {
 	private Button registrar;
 	private Button cancelar;
 
-	public ControladorRegistrarPedido(Stage escenario, Scene anterior){
+	public CreacionPedido(Stage escenario, Scene anterior){
 		interfaz = new FormularioRegistrarPedido();
 
 		this.rbExistente = interfaz.rbExistente;
