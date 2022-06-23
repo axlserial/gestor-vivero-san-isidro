@@ -4,10 +4,8 @@ import Entidades.Cliente;
 import conexiones.ConexionClientes;
 import interfaces.FormularioAgregarCliente;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -19,15 +17,15 @@ public class ControladorCliente {
 	private Button cancelar;
 	private TextField nombres;
 	private TextField apellidos;
-	private TextField[] telefono;
+	private TextField telefono1;
+	private TextField telefono2;
 	private TextField poblacion;
 
 	private Text nombresError;
 	private Text apellidosError;
-	private Text telefonoError;
+	private Text telefono1Error;
+	private Text telefono2Error;
 	private Text poblacionError;
-
-	private Alert alerta;
 
 	private ConexionClientes conexion;
 	private Cliente cliente;
@@ -40,11 +38,13 @@ public class ControladorCliente {
 		cancelar = interfaz.cancelar;
 		nombres = interfaz.nombres;
 		apellidos = interfaz.apellidos;
-		telefono = interfaz.telefono;
+		telefono1 = interfaz.telefono1;
+		telefono2 = interfaz.telefono2;
 		poblacion = interfaz.poblacion;
 		nombresError = interfaz.nombresError;
 		apellidosError = interfaz.apellidosError;
-		telefonoError = interfaz.telefonoError;
+		telefono1Error = interfaz.telefono1Error;
+		telefono2Error = interfaz.telefono2Error;
 		poblacionError = interfaz.poblacionError;
 
 		principal.setOnAction(e -> {
@@ -99,16 +99,23 @@ public class ControladorCliente {
 			contenido = false;
 		}
 
-		if (telefono[0].getText().isEmpty()) {
-			telefonoError.setText("Teléfono requerido");
-			telefonoError.setVisible(true);
+		if (telefono1.getText().isEmpty()) {
+			telefono1Error.setText("Teléfono requerido");
+			telefono1Error.setVisible(true);
 			contenido = false;
 		}
 
-		// En caso de que no se introduzcan solo números
-		if (!telefono[0].getText().isEmpty() && !telefono[0].getText().matches("[0-9]*")) {
-			telefonoError.setText("Solo se aceptan valores númericos");
-			telefonoError.setVisible(true);
+		// Telefono1: En caso de que no se introduzcan solo números
+		if (!telefono1.getText().isEmpty() && !telefono1.getText().matches("[0-9]*")) {
+			telefono1Error.setText("Solo se aceptan valores númericos");
+			telefono1Error.setVisible(true);
+			contenido = false;
+		}
+
+		// Telefono 2: En caso de que no se introduzcan solo números
+		if (!telefono2.getText().isEmpty() && !telefono2.getText().matches("[0-9]*")) {
+			telefono2Error.setText("Solo se aceptan valores númericos");
+			telefono2Error.setVisible(true);
 			contenido = false;
 		}
 
@@ -117,7 +124,7 @@ public class ControladorCliente {
 			contenido = false;
 		}
 
-		// Hay campos vacios
+		// Hay campos vacios o con datos incorrectos
 		if (!contenido)
 			return;
 
@@ -127,22 +134,15 @@ public class ControladorCliente {
 		cliente.setNombre(nombres.getText());
 		cliente.setApellidos(apellidos.getText());
 		cliente.setPoblacion(poblacion.getText());
-		String[] telefonos = {telefono[0].getText(), ""};
+		String[] telefonos = {telefono1.getText(), telefono2.getText()};
 		cliente.setTelefonos(telefonos);
 		if (!conexion.guardarCliente(cliente)) {
 			System.err.println("Error al guardar el cliente");
 			return;
 		}
 
-		// Muestra alerta de confirmación
-		alerta = new Alert(Alert.AlertType.INFORMATION);
-		Stage alertaStage = (Stage) alerta.getDialogPane().getScene().getWindow();
-		alertaStage.getIcons()
-				.add(new Image(getClass().getResource("/assets/logo.png").toExternalForm()));
-		alerta.setTitle("Confirmación");
-		alerta.setHeaderText("Usuario registrado con éxito");
-		alerta.setContentText("Ya puede cerrar esté menú");
-		alerta.showAndWait();
+		// Muestra alerta de éxito
+		interfaz.mensajes.mensaje("Usuario agregado exitosamente");
 
 		// Limpia inputs
 		limpiaInputs();
@@ -151,7 +151,8 @@ public class ControladorCliente {
 	private void limpiaInputs() {
 		nombres.setText("");
 		apellidos.setText("");
-		telefono[0].setText("");
+		telefono1.setText("");
+		telefono2.setText("");
 		poblacion.setText("");
 	}
 

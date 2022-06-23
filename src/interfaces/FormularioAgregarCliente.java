@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
@@ -25,15 +24,18 @@ public class FormularioAgregarCliente {
 	public TextField nombres;
 	public TextField apellidos;
 
-	public VBox contTelef;
-	public TextField[] telefono;
+	public TextField telefono1;
+	public TextField telefono2;
 
 	public TextField poblacion;
 
 	public Text nombresError;
 	public Text apellidosError;
-	public Text telefonoError;
+	public Text telefono1Error;
+	public Text telefono2Error;
 	public Text poblacionError;
+
+	public Mensajes mensajes;
 
 	public FormularioAgregarCliente(){
 
@@ -67,98 +69,110 @@ public class FormularioAgregarCliente {
 
 		/////////////////////////////////////////////////////////
 
-		nombres = new TextField();
-		nombres.setLayoutX(455.0);
-		nombres.setLayoutY(82.0);
-		nombres.setPrefHeight(26.0);
-		nombres.setPrefWidth(300.0);
-
 		Label nombresLabel = new Label("Nombre(s)");
 		nombresLabel.setLayoutX(455.0);
-		nombresLabel.setLayoutY(64.0);
+		nombresLabel.setLayoutY(47.0);
+
+		nombres = new TextField();
+		nombres.setLayoutX(455.0);
+		nombres.setLayoutY(65.0);
+		nombres.setPrefHeight(26.0);
+		nombres.setPrefWidth(300.0);
 
 		nombresError = new Text();
 		nombresError.setFill(Color.web("#dc1515"));
 		nombresError.setLayoutX(455.0);
-		nombresError.setLayoutY(121.0);
+		nombresError.setLayoutY(104.0);
 		nombresError.setStrokeType(StrokeType.OUTSIDE);
 		nombresError.setStrokeWidth(0.0);
 		nombresError.setVisible(false);
+
 		/////
+		Label apellidosLabel = new Label("Apellido(s)");
+		apellidosLabel.setLayoutX(455.0);
+		apellidosLabel.setLayoutY(119.0);
 
 		apellidos = new TextField();
 		apellidos.setLayoutX(455.0);
-		apellidos.setLayoutY(160.0);
+		apellidos.setLayoutY(137.0);
 		apellidos.setPrefHeight(26.0);
 		apellidos.setPrefWidth(300.0);
-
-		Label apellidosLabel = new Label("Apellido(s)");
-		apellidosLabel.setLayoutX(455.0);
-		apellidosLabel.setLayoutY(142.0);
 
 		apellidosError = new Text();
 		apellidosError.setFill(Color.web("#dc1515"));
 		apellidosError.setLayoutX(455.0);
-		apellidosError.setLayoutY(199.0);
+		apellidosError.setLayoutY(176.0);
 		apellidosError.setStrokeType(StrokeType.OUTSIDE);
 		apellidosError.setStrokeWidth(0.0);
 		apellidosError.setVisible(false);
+		
+		// Telefono 1
+		Label telefono1Label = new Label("Teléfono 1");
+		telefono1Label.setLayoutX(455.0);
+		telefono1Label.setLayoutY(191.0);
+
+		telefono1 = new TextField();
+		telefono1.setLayoutX(455.0);
+		telefono1.setLayoutY(209.0);
+		telefono1.setPrefHeight(26.0);
+		telefono1.setPrefWidth(300.0);
+
+		telefono1Error = new Text();
+		telefono1Error.setFill(Color.web("#dc1515"));
+		telefono1Error.setLayoutX(455.0);
+		telefono1Error.setLayoutY(250.0);
+		telefono1Error.setStrokeType(StrokeType.OUTSIDE);
+		telefono1Error.setStrokeWidth(0.0);
+		telefono1Error.setVisible(false);
+
+		// Telefono 2
+		Label telefono2Label = new Label("Teléfono 2 (opcional)");
+		telefono2Label.setLayoutX(455.0);
+		telefono2Label.setLayoutY(262.0);
+
+		telefono2 = new TextField();
+		telefono2.setLayoutX(455.0);
+		telefono2.setLayoutY(280.0);
+		telefono2.setPrefHeight(26.0);
+		telefono2.setPrefWidth(300.0);
+
+		telefono2Error = new Text();
+		telefono2Error.setFill(Color.web("#dc1515"));
+		telefono2Error.setLayoutX(455.0);
+		telefono2Error.setLayoutY(321.0);
+		telefono2Error.setStrokeType(StrokeType.OUTSIDE);
+		telefono2Error.setStrokeWidth(0.0);
+		telefono2Error.setVisible(false);
+
 		/////
-
-		telefono = new TextField[3];
-		telefono[0] = new TextField();
-		telefono[0].setLayoutX(455.0);
-		telefono[0].setLayoutY(240.0);
-		telefono[0].setPrefHeight(26.0);
-		telefono[0].setPrefWidth(300.0);
-
-		Label telefonoLabel = new Label("Teléfono");
-		telefonoLabel.setLayoutX(455.0);
-		telefonoLabel.setLayoutY(222.0);
-
-		telefonoError = new Text();
-		telefonoError.setFill(Color.web("#dc1515"));
-		telefonoError.setLayoutX(455.0);
-		telefonoError.setLayoutY(281.0);
-		telefonoError.setStrokeType(StrokeType.OUTSIDE);
-		telefonoError.setStrokeWidth(0.0);
-		telefonoError.setVisible(false);
-
-		contTelef = new VBox(telefono[0]);
-		contTelef.setLayoutX(455.0);
-		contTelef.setLayoutY(240.0);
-		contTelef.setPrefHeight(26.0);
-		contTelef.setPrefWidth(300.0);
-		/////
-
-		poblacion = new TextField();
-		poblacion.setLayoutX(455.0);
-		poblacion.setLayoutY(323.0);
-		poblacion.setPrefHeight(26.0);
-		poblacion.setPrefWidth(300.0);
-
 		Label poblacionLabel = new Label("Población");
 		poblacionLabel.setLayoutX(455.0);
-		poblacionLabel.setLayoutY(305.0);
+		poblacionLabel.setLayoutY(331.0);
+	
+		poblacion = new TextField();
+		poblacion.setLayoutX(455.0);
+		poblacion.setLayoutY(349.0);
+		poblacion.setPrefHeight(26.0);
+		poblacion.setPrefWidth(300.0);
 
 		poblacionError = new Text("Población requerida");
 		poblacionError.setFill(Color.web("#dc1515"));
 		poblacionError.setLayoutX(455.0);
-		poblacionError.setLayoutY(362.0);
+		poblacionError.setLayoutY(388.0);
 		poblacionError.setStrokeType(StrokeType.OUTSIDE);
 		poblacionError.setStrokeWidth(0.0);
 		poblacionError.setVisible(false);
-		/////
 
+		/////
 		Separator sep = new Separator();
 		sep.setLayoutX(347.0);
-		sep.setLayoutY(398.0);
+		sep.setLayoutY(426.0);
 		sep.setPrefHeight(3.0);
 		sep.setPrefWidth(516.0);
 
 		registrar = new Button("Registrar cliente");
 		registrar.setLayoutX(382.0);
-		registrar.setLayoutY(452.0);
+		registrar.setLayoutY(468.0);
 		registrar.setMnemonicParsing(false);
 		registrar.setPrefHeight(26.0);
 		registrar.setPrefWidth(146.0);
@@ -166,7 +180,7 @@ public class FormularioAgregarCliente {
 
 		cancelar = new Button("Cancelar");
 		cancelar.setLayoutX(682.0);
-		cancelar.setLayoutY(452.0);
+		cancelar.setLayoutY(468.0);
 		cancelar.setMnemonicParsing(false);
 		cancelar.setPrefHeight(26.0);
 		cancelar.setPrefWidth(146.0);
@@ -175,7 +189,8 @@ public class FormularioAgregarCliente {
 		AnchorPane formulario = new AnchorPane(
 				nombres, nombresLabel, nombresError,
 				apellidos, apellidosLabel, apellidosError,
-				contTelef, telefonoLabel, telefonoError,
+				telefono1Label, telefono1, telefono1Error,
+				telefono2Label, telefono2, telefono2Error,
 				poblacion, poblacionLabel, poblacionError,
 				sep, registrar, cancelar);
 		formulario.setLayoutX(36.0);
@@ -197,8 +212,12 @@ public class FormularioAgregarCliente {
 			quitarError("apellidos");
 		});
 
-		contTelef.setOnMouseClicked(e -> {
-			quitarError("telefono");
+		telefono1.setOnMouseClicked(e -> {
+			quitarError("telefono1");
+		});
+
+		telefono2.setOnMouseClicked(e -> {
+			quitarError("telefono2");
 		});
 
 		poblacion.setOnMouseClicked(e -> {
@@ -206,6 +225,8 @@ public class FormularioAgregarCliente {
 		});
 
 		escena = new Scene(todo, 1280, 720);
+
+		mensajes = new Mensajes();
 	}
 
 	public Scene getScene(){
@@ -220,8 +241,11 @@ public class FormularioAgregarCliente {
 			case "apellidos":
 				apellidosError.setVisible(false);
 				break;
-			case "telefono":
-				telefonoError.setVisible(false);
+			case "telefono1":
+				telefono1Error.setVisible(false);
+				break;
+			case "telefono2":
+				telefono2Error.setVisible(false);
 				break;
 			case "poblacion":
 				poblacionError.setVisible(false);
