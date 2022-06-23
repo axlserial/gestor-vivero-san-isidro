@@ -1,5 +1,7 @@
 package controladores;
 
+import Entidades.Cliente;
+import conexiones.ConexionClientes;
 import interfaces.FormularioAgregarCliente;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,8 +29,10 @@ public class ControladorCliente {
 
 	private Alert alerta;
 
+	private ConexionClientes conexion;
+	private Cliente cliente;
 
-	public ControladorCliente(Stage escenario, Scene anterior){
+	public ControladorCliente(Stage escenario, Scene anterior) {
 		interfaz = new FormularioAgregarCliente();
 
 		principal = interfaz.principal;
@@ -57,88 +61,101 @@ public class ControladorCliente {
 			limpiaInputs();
 		});
 
+		conexion = new ConexionClientes();
+		cliente = new Cliente();
+
 	}
 
-
-	private void registrar(){
+	private void registrar() {
 		String valor;
 
 		// En caso de que algún campo esté vacío
 		boolean contenido = true;
-		if (nombres.getText().isEmpty()){
+		if (nombres.getText().isEmpty()) {
 			nombresError.setText("Nombre(s) requerido(s)");
 			nombresError.setVisible(true);
 			contenido = false;
 		}
 
 		// En caso de que no se introduzcan solo letras
-		valor = nombres.getText().replaceAll("\\s+","");
-		if (!nombres.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")){
+		valor = nombres.getText().replaceAll("\\s+", "");
+		if (!nombres.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
 			nombresError.setText("Solo se aceptan letras");
 			nombresError.setVisible(true);
 			contenido = false;
 		}
 
-		if (apellidos.getText().isEmpty()){
+		if (apellidos.getText().isEmpty()) {
 			apellidosError.setText("Apellido(s) requerido(s)");
 			apellidosError.setVisible(true);
 			contenido = false;
 		}
 
 		// En caso de que no se introduzcan solo letras
-		valor = apellidos.getText().replaceAll("\\s+","");
-		if (!apellidos.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")){
+		valor = apellidos.getText().replaceAll("\\s+", "");
+		if (!apellidos.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
 			apellidosError.setText("Solo se aceptan letras");
 			apellidosError.setVisible(true);
 			contenido = false;
 		}
 
-		if (telefono[0].getText().isEmpty()){
+		if (telefono[0].getText().isEmpty()) {
 			telefonoError.setText("Teléfono requerido");
 			telefonoError.setVisible(true);
 			contenido = false;
 		}
 
 		// En caso de que no se introduzcan solo números
-		if (!telefono[0].getText().isEmpty() && !telefono[0].getText().matches("[0-9]*")){
+		if (!telefono[0].getText().isEmpty() && !telefono[0].getText().matches("[0-9]*")) {
 			telefonoError.setText("Solo se aceptan valores númericos");
 			telefonoError.setVisible(true);
 			contenido = false;
 		}
 
-		if (poblacion.getText().isEmpty()){
+		if (poblacion.getText().isEmpty()) {
 			poblacionError.setVisible(true);
 			contenido = false;
 		}
 
-		// Sí ningún campo está vacío
-		if (contenido) {
+		// Hay campos vacios
+		if (!contenido)
+			return;
 
-			// Muestra alerta de confirmación
-			alerta = new Alert(Alert.AlertType.INFORMATION);
-			Stage alertaStage = (Stage) alerta.getDialogPane().getScene().getWindow();
-			alertaStage.getIcons()
-			.add(new Image(getClass().getResource("/assets/logo.png").toExternalForm()));
-			alerta.setTitle("Confirmación");
-			alerta.setHeaderText("Usuario registrado con éxito");
-			alerta.setContentText("Ya puede cerrar esté menú");
-			alerta.showAndWait();
-			
-			// Limpia inputs
-			limpiaInputs();
+		// CAMPOS RELLENADOS CORRECTAMENTE
 
+		// Guardar en Base de Datos
+		cliente.setNombre(nombres.getText());
+		cliente.setApellidos(apellidos.getText());
+		cliente.setPoblacion(poblacion.getText());
+		String[] telefonos = {telefono[0].getText(), ""};
+		cliente.setTelefonos(telefonos);
+		if (!conexion.guardarCliente(cliente)) {
+			System.err.println("Error al guardar el cliente");
+			return;
 		}
-		
+
+		// Muestra alerta de confirmación
+		alerta = new Alert(Alert.AlertType.INFORMATION);
+		Stage alertaStage = (Stage) alerta.getDialogPane().getScene().getWindow();
+		alertaStage.getIcons()
+				.add(new Image(getClass().getResource("/assets/logo.png").toExternalForm()));
+		alerta.setTitle("Confirmación");
+		alerta.setHeaderText("Usuario registrado con éxito");
+		alerta.setContentText("Ya puede cerrar esté menú");
+		alerta.showAndWait();
+
+		// Limpia inputs
+		limpiaInputs();
 	}
 
-	private void limpiaInputs(){
+	private void limpiaInputs() {
 		nombres.setText("");
 		apellidos.setText("");
 		telefono[0].setText("");
 		poblacion.setText("");
 	}
 
-	public Scene getScene(){
+	public Scene getScene() {
 		return interfaz.getScene();
 	}
 }

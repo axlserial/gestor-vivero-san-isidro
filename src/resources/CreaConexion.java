@@ -16,6 +16,7 @@ public class CreaConexion {
 		try {
 			c = DriverManager.getConnection(conexion);
 			stmt = c.createStatement();
+			System.out.println("Conexion con la base de datos ESTABLECIDA");
 		} catch(Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
