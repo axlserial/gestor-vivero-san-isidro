@@ -139,7 +139,10 @@ public class ControladorAbono {
 			AbonoPago nuevoAbono = new AbonoPago();
 			nuevoAbono.setCantidad(precio);
 			nuevoAbono.setFecha(LocalDate.now().toString());	// sacar fecha
-			// Cómo sé cuál es el pedido elegido?
+			if (!conexionAbono.registrarAbono(nuevoAbono, pedido.getIdPedido())) {
+				ff.mensajes.error("Error al Intentar Registrar el Abono");
+				return;
+			}
 
 			// mensaje de exito
 			ff.mensajes.mensaje("Registro correcto");
