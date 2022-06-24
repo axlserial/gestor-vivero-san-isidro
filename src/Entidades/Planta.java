@@ -3,14 +3,14 @@ package Entidades;
 public class Planta {
 	
 	private int idPlanta;
-	private String tipoHortaliza;
+	private int idTipoHortaliza;
 	private String variedad;
 	private int numeroCharolas;
 	private Double precio;
 
 	public Planta() {
 		idPlanta = 0;
-		tipoHortaliza = "";
+		idTipoHortaliza = 0;
 		variedad = "";
 		numeroCharolas = 0;
 		precio = 0.0;
@@ -29,12 +29,12 @@ public class Planta {
 		this.idPlanta = idPlanta;
 	}
 
-	public String getTipoHortaliza() {
-		return tipoHortaliza;
+	public int getIdTipoHortaliza() {
+		return idTipoHortaliza;
 	}
 
-	public void setTipoHortaliza(String tipoHortaliza) {
-		this.tipoHortaliza = tipoHortaliza;
+	public void setTipoHortaliza(int idTipoHortaliza) {
+		this.idTipoHortaliza = idTipoHortaliza;
 	}
 
 	public String getVariedad() {
