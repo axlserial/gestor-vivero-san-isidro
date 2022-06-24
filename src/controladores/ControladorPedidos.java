@@ -292,13 +292,16 @@ public class ControladorPedidos {
 
 		// se elimina el pedido
 		if (eleccion) {
-			// aqui se realiza la eliminación del pedido
+			if (!conexionPedido.eliminarPedido(id)) {
+				interfazBusqueda.mensajes.mensaje("Error al Intentar Eliminar el Pedido");
+				return;
+			}
 
 			// mensaje de exito
 			interfazBusqueda.mensajes.mensaje("Pedido borrado con éxito");
+			pedidos.remove(indice);
 
-			// dependiendo de como se quiera, se elimina el pedido del arraylist
-			// o se vuelven a pedir los pedidos a la bd
+			// Actualizar pedidos mostrados
 		}
 	}
 
