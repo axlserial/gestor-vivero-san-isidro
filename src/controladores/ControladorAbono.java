@@ -32,10 +32,10 @@ public class ControladorAbono {
 	private final ConexionClientes conexionClientes = new ConexionClientes();
 	private final ConexionAbono conexionAbono = new ConexionAbono();
 	private final ConexionPlantas conexionPlantas = new ConexionPlantas();
-	
+
 	public ControladorAbono(Stage escenario, Scene anterior) {
 		interfazBusqueda = new BusquedaRegistrarAbono();
-		pedidos = new ArrayList<>();
+		pedidos = new ArrayList<Pedido>();
 
 		interfazBusqueda.principal.setOnAction(e -> {
 			escenario.setScene(anterior);
@@ -63,24 +63,24 @@ public class ControladorAbono {
 
 		interfazBusqueda.pag.setPageFactory((indice) -> {
 			return creaPagina(indice);
-        });
-		
+		});
+
 	}
 
-    public VBox creaPagina(int indice) {
+	public VBox creaPagina(int indice) {
 		HBox datos;
 		VBox box = new VBox();
 		box.setAlignment(Pos.CENTER);
 		box.setSpacing(20);
 
-        int indiceInicial = indice * 4, indiceFinal;
+		int indiceInicial = indice * 4, indiceFinal;
 		if (indiceInicial == 0)
 			indiceFinal = pedidos.size() <= 4 ? pedidos.size() : 4;
 		else
 			indiceFinal = pedidos.size() - indiceInicial;
 
 		// Llena vbox con datos de lso resultados de pedidos
-		for (int i = 0; i < indiceFinal; i++, indiceInicial++){
+		for (int i = 0; i < indiceFinal; i++, indiceInicial++) {
 			int indicePedido = indiceInicial;
 			Pedido actual = pedidos.get(indiceInicial);
 			datos = new HBox();
@@ -89,7 +89,7 @@ public class ControladorAbono {
 
 			Label info = new Label("Pedido #" + actual.getIdPedido() + " - Fecha: " + actual.getFechaPedido());
 			info.setFont(new Font("Segoe UI", 18.0));
-			
+
 			Button regAbono = new Button("Registrar abono");
 			regAbono.setOnAction(e -> {
 				modificar(indicePedido);
@@ -99,8 +99,8 @@ public class ControladorAbono {
 			box.getChildren().add(datos);
 		}
 
-        return box;
-    }
+		return box;
+	}
 
 	private void modificar(int indice) {
 		Pedido pedido = this.pedidos.get(indice);
@@ -109,14 +109,14 @@ public class ControladorAbono {
 		Scene escenaAbonar = ff.abrir(pedido);
 		Stage ventana = new Stage();
 		ventana.setScene(escenaAbonar);
-		
+
 		ff.cancelar.setOnAction(e -> {
 			ventana.close();
 		});
-		
+
 		ff.registrar.setOnAction(e -> {
 			boolean contenido = true;
-			double precio;
+			Double precio = Double.parseDouble("0.0");
 
 			if (ff.pago.getText().isEmpty()) {
 				ff.mensajes.error("Abono vacío");
@@ -131,14 +131,18 @@ public class ControladorAbono {
 			}
 
 			// Pasó varificación
-			if (contenido) {
+			if (!contenido)
+				return;
 
-				// insersión del abono
+			// insersión del abono
+			AbonoPago nuevoAbono = new AbonoPago();
+			nuevoAbono.setCantidad(precio);
+			nuevoAbono.setFecha(fecha);	// sacar fecha
+			// Cómo sé cuál es el pedido elegido?
 
-				// mensaje de exito
-				ff.mensajes.mensaje("Registro correcto");
-				ventana.close();
-			}
+			// mensaje de exito
+			ff.mensajes.mensaje("Registro correcto");
+			ventana.close();
 		});
 
 		ventana.showAndWait();
@@ -155,7 +159,7 @@ public class ControladorAbono {
 			res = new ArrayList<Pedido>();
 			try {
 				// Recorrer Pedidos
-				while(resultado.next()) {
+				while (resultado.next()) {
 					Pedido aux = new Pedido();
 					aux.setIdPedido(resultado.getInt("idPedido"));
 					aux.setFechaPedido(resultado.getString("fechaPedido"));
@@ -169,13 +173,13 @@ public class ControladorAbono {
 					clienteAux.setNombre(clienteRes.getString("nombres"));
 					clienteAux.setApellidos(clienteRes.getString("apellidos"));
 					clienteAux.setPoblacion(clienteRes.getString("poblacion"));
-					String telefonos[] = {clienteRes.getString("telefono1"), clienteRes.getString("telefono2")};
+					String telefonos[] = { clienteRes.getString("telefono1"), clienteRes.getString("telefono2") };
 					clienteAux.setTelefonos(telefonos);
 					aux.setCliente(clienteAux);
 
 					// ObtenerPagos
 					ResultSet abonosRes = conexionAbono.obtenerAbonosDePedido(resultado.getInt("idPedido"));
-					while(abonosRes.next()) {
+					while (abonosRes.next()) {
 						AbonoPago abonoAux = new AbonoPago();
 						abonoAux.setIdAbonosPago(abonosRes.getInt("idAbonosPago"));
 						abonoAux.setFecha(abonosRes.getString("fecha"));
@@ -186,7 +190,7 @@ public class ControladorAbono {
 
 					// Obtener Plantas
 					ResultSet plantasRes = conexionPlantas.obtenerPlantasDePedido(resultado.getInt("idPedido"));
-					while(plantasRes.next()) {
+					while (plantasRes.next()) {
 						Planta plantaAux = new Planta();
 						plantaAux.setIdPlanta(plantasRes.getInt("idPlantaPedido"));
 						plantaAux.setTipoHortaliza(plantasRes.getInt("idTipoHortaliza"));
