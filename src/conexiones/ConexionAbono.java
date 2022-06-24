@@ -3,6 +3,8 @@ package conexiones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import Entidades.AbonoPago;
 import resources.CreaConexion;
 
 public class ConexionAbono {
@@ -23,6 +25,20 @@ public class ConexionAbono {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public Boolean registrarAbono(AbonoPago abono, int idPedido) {
+		String consulta = "";
+		consulta = "INSERT INTO abonosPago (fecha, cantidad, idPedido) VALUES ";
+		consulta += "('" + abono.getFecha() + "', " + abono.getCantidad() + ", " + idPedido + ")";
+		try {
+			conexion.executeUpdate(consulta);
+			return true;
+		} catch (SQLException e) {
+			System.err.println(e);
+			System.err.println("Consulta: " + consulta);
+			return false;
 		}
 	}
 }
