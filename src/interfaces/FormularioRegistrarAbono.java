@@ -25,6 +25,8 @@ public class FormularioRegistrarAbono {
 	private Text titulo;
 	private ScrollPane datosPedido;
 	private ScrollPane datosAbono;
+	private Text totalPedido;
+	private Text adRestante;
 
 	public Mensajes mensajes;
 	
@@ -94,25 +96,39 @@ public class FormularioRegistrarAbono {
 		abRealizar.setStrokeWidth(0.0);
 		abRealizar.setFont(new Font("Segoe UI", 18.0));
 
+		totalPedido = new Text("Total pedido: ");
+		totalPedido.setLayoutX(250.0);
+		totalPedido.setLayoutY(343.0);
+		totalPedido.setStrokeType(StrokeType.OUTSIDE);
+		totalPedido.setStrokeWidth(0.0);
+		totalPedido.setFont(new Font("Segoe UI", 14.0));
+
+		adRestante = new Text("Adeudo restante: ");
+		adRestante.setLayoutX(250.0);
+		adRestante.setLayoutY(367.0);
+		adRestante.setStrokeType(StrokeType.OUTSIDE);
+		adRestante.setStrokeWidth(0.0);
+		adRestante.setFont(new Font("Segoe UI", 14.0));
+
 		Label pCliente = new Label("Pago del cliente");
 		pCliente.setLayoutX(250.0);
-		pCliente.setLayoutY(346.0);
+		pCliente.setLayoutY(381.0);
 
 		pago = new TextField();
 		pago.setLayoutX(250.0);
-		pago.setLayoutY(363.0);
+		pago.setLayoutY(398.0);
 		pago.setPrefHeight(26.0);
 		pago.setPrefWidth(300.0);
 
 		Separator sepPago = new Separator();
 		sepPago.setLayoutX(150.0);
-		sepPago.setLayoutY(426.0);
+		sepPago.setLayoutY(452.0);
 		sepPago.setPrefHeight(2.0);
 		sepPago.setPrefWidth(500.0);
 
 		registrar = new Button("Registrar Abono");
 		registrar.setLayoutX(188.0);
-		registrar.setLayoutY(460.0);
+		registrar.setLayoutY(474.0);
 		registrar.setMnemonicParsing(false);
 		registrar.setPrefHeight(26.0);
 		registrar.setPrefWidth(146.0);
@@ -120,7 +136,7 @@ public class FormularioRegistrarAbono {
 
 		cancelar = new Button("Cancelar");
 		cancelar.setLayoutX(464.0);
-		cancelar.setLayoutY(460.0);
+		cancelar.setLayoutY(474.0);
 		cancelar.setMnemonicParsing(false);
 		cancelar.setPrefHeight(26.0);
 		cancelar.setPrefWidth(146.0);
@@ -128,8 +144,8 @@ public class FormularioRegistrarAbono {
 
 		AnchorPane cuerpo = new AnchorPane(
 			infoPed, contPedido, infoAb, contAbono,
-			abRealizar, pCliente, pago, sepPago,
-			registrar, cancelar
+			abRealizar, totalPedido, adRestante, pCliente, 
+			pago, sepPago, registrar, cancelar
 		);
 		cuerpo.setLayoutX(5.0);
 		cuerpo.setLayoutY(62.0);
@@ -149,12 +165,15 @@ public class FormularioRegistrarAbono {
 	}
 
 	public Scene abrir(Pedido pedido) {
+		int totalPagar = 0;
+
 		titulo.setText(String.format("Pedido #%05d", pedido.getIdPedido()));
 
 		Label dPedido = new Label("Fecha pedido: " + pedido.getFechaPedido() + "\n");
 		dPedido.setText(dPedido.getText() + "Cliente: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellidos() + "\n");
 		dPedido.setText(dPedido.getText() + "Plantas\n");
 		for (int i = 0; i < pedido.getPlantas().length; i++) {
+			
 			dPedido.setText(dPedido.getText() + "- " + pedido.getPlantas()[i].getVariedad() + "\n");
 		}
 		dPedido.setFont(new Font("Segoe UI", 12.0));

@@ -2,6 +2,7 @@ package controladores;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Entidades.AbonoPago;
@@ -137,7 +138,7 @@ public class ControladorAbono {
 			// insersión del abono
 			AbonoPago nuevoAbono = new AbonoPago();
 			nuevoAbono.setCantidad(precio);
-			nuevoAbono.setFecha(fecha);	// sacar fecha
+			nuevoAbono.setFecha(LocalDate.now().toString());	// sacar fecha
 			// Cómo sé cuál es el pedido elegido?
 
 			// mensaje de exito
