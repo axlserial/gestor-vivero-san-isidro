@@ -399,7 +399,7 @@ public class FormularioModificarPedido {
 			Integer.parseInt(fechaPartida[2])
 		));
 
-		if (!pedido.getFechaSiembra().isEmpty()) {
+		if (!(pedido.getFechaSiembra() == null) && !pedido.getFechaSiembra().isEmpty()) {
 			String[] fSiembra = pedido.getFechaSiembra().split("-");
 			if (fSiembra.length > 0) {
 				fechaSiembra.setValue(LocalDate.of(
@@ -409,7 +409,7 @@ public class FormularioModificarPedido {
 			}
 		}
 
-		if (!pedido.getFechaEntrega().isEmpty()) {
+		if (!(pedido.getFechaEntrega() == null) && !pedido.getFechaEntrega().isEmpty()) {
 			String[] fEntrega = pedido.getFechaEntrega().split("-");
 			if (fEntrega.length > 0) {
 				fechaEntrega.setValue(LocalDate.of(

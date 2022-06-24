@@ -200,17 +200,17 @@ public class ControladorPedidos {
 	
 				if (contenido) {
 					Planta p = new Planta();
-					// switch (tipoElegido) {
-					// 	case "Jitomate":
-					// 		tipo = 1;
-					// 		break;
-					// 	case "Cebolla":
-					// 		tipo = 2;
-					// 		break;
-					// 	case "Tomate de Cáscara":
-					// 		tipo = 3;
-					// 		break;
-					// }
+					switch (tipoElegido) {
+						case "Jitomate":
+							tipo = 1;
+							break;
+						case "Cebolla":
+							tipo = 2;
+							break;
+						case "Tomate de Cáscara":
+							tipo = 3;
+							break;
+					}
 					p.setTipoHortaliza(tipo);
 					p.setVariedad(variedad.getText());
 					p.setPrecio(precio);
@@ -223,13 +223,6 @@ public class ControladorPedidos {
 			fechaSiembra = fmp.fechaSiembra.getValue() == null ? "" : fmp.fechaSiembra.getValue().toString();
 			fechaEntrega = fmp.fechaEntrega.getValue() == null ? "" : fmp.fechaEntrega.getValue().toString();
 	
-			// En caso de que esté vacío
-			// if (fmp.pagoInicial.getText().isEmpty()) {
-			// 	fmp.pagoError.setText("Pago requerido");
-			// 	fmp.pagoError.setVisible(true);
-			// 	contenido = false;
-			// }
-	
 			// Si no se metió un pago válido
 			try {
 				pagoInicial = Double.parseDouble(fmp.pagoInicial.getText());
@@ -237,23 +230,8 @@ public class ControladorPedidos {
 				pagoInicial = 0.0;
 			}
 	
-			// En caso de que esté vacío
-			// if (fmp.diasAprox.getText().isEmpty()) {
-			// 	fmp.diasError.setText("Número de días requerido");
-			// 	fmp.diasError.setVisible(true);
-			// 	contenido = false;
-			// }
-	
 			// // Si no se metió una cantidad válida
 			dias = fmp.diasAprox.getText();
-			// try {
-			// 	diasInt = Integer.parseInt(fmp.diasAprox.getText());
-			// 	dias = LocalDate.now().plusDays(diasInt).toString();
-			// } catch (Exception exp) {
-			// 	fmp.diasError.setText("Valor incorrecto");
-			// 	fmp.diasError.setVisible(true);
-			// 	contenido = false;
-			// }
 	
 			// Hay campos vacios o con datos incorrectos
 			if (!contenido)
@@ -261,16 +239,11 @@ public class ControladorPedidos {
 	
 			// CAMPOS RELLENADOS CORRECTAMENTE
 			Pedido ped = new Pedido();
-			// Buscar cliente
-			// clientes.forEach(c -> {
-			// 	if (c.getIdCliente() == id)
-			// 		cliente = c;
-			// });
 			ped.setCliente(pedido.getCliente());
 			ped.setFechaPedido(fechaPedido);
 			ped.setFechaSiembra(fechaSiembra);
 			ped.setFechaEntrega(fechaEntrega);
-			// ped.setFechaAproximada(dias);
+			ped.setFechaAproximada(dias);
 			AbonoPago pagos[] = new AbonoPago[1];
 			pagos[0] = new AbonoPago();
 			pagos[0].setCantidad(pagoInicial);
@@ -281,6 +254,7 @@ public class ControladorPedidos {
 			// Aqui va actualizar pedido
 	
 			fmp.mensajes.mensaje("Pedido Actualizado Exitosamente");
+			interfazBusqueda.buscar.fire();
 		});
 
 		ventana.show();
@@ -299,7 +273,9 @@ public class ControladorPedidos {
 
 			// mensaje de exito
 			interfazBusqueda.mensajes.mensaje("Pedido borrado con éxito");
-			pedidos.remove(indice);
+			// pedidos.remove(indice);
+			interfazBusqueda.buscar.fire();
+			interfazBusqueda.pag.setCurrentPageIndex(1);
 
 			// Actualizar pedidos mostrados
 
