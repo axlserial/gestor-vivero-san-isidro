@@ -25,7 +25,7 @@ public class CreacionPedido {
 	private FormularioRegistrarPedido interfaz;
 
 	private boolean contenido;
-	
+
 	private ConexionPedido conexionPedido;
 	private ConexionClientes conexionClientes;
 	private Pedido pedido;
@@ -33,9 +33,9 @@ public class CreacionPedido {
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Planta> plantas;
 
-	public CreacionPedido(Stage escenario, Scene anterior){
+	public CreacionPedido(Stage escenario, Scene anterior) {
 		interfaz = new FormularioRegistrarPedido();
-		
+
 		interfaz.agregarPlanta.setOnAction(e -> {
 			Tab planta = new Tab("Planta " + (interfaz.plantas.getTabs().size() + 1));
 			planta.setContent(interfaz.agregaTabPlanta());
@@ -62,6 +62,31 @@ public class CreacionPedido {
 			String nombre = interfaz.nombre.getText();
 
 			// busqueda y guardado de los resultados en clientesExistentes
+			ResultSet resultado = conexionClientes.buscarClientes(nombre);
+			if (resultado != null) {
+				clientes = new ArrayList<Cliente>();
+				try {
+					while (resultado.next()) {
+						String[] datos = new String[5];
+						datos[0] = resultado.getString("nombres");
+						datos[1] = resultado.getString("apellidos");
+						datos[2] = resultado.getString("telefono1");
+						datos[3] = resultado.getString("telefono2");
+						datos[4] = resultado.getString("poblacion");
+						clientes.add(cliente.crearObjeto(resultado.getInt("idCliente"), datos));
+					}
+
+					interfaz.clientesExistentes.getItems().clear();
+					clientes.forEach(cliente -> {
+						interfaz.clientesExistentes.getItems()
+								.add(cliente.getIdCliente() + " - " + cliente.getNombre() + " "
+										+ cliente.getApellidos());
+					});
+					interfaz.clientesExistentes.getSelectionModel().selectFirst();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
 		});
 
 		// Obtener clientes
@@ -71,7 +96,7 @@ public class CreacionPedido {
 		clientes = new ArrayList<Cliente>();
 		if (resultado != null) {
 			try {
-				while(resultado.next()) {
+				while (resultado.next()) {
 					String[] datos = new String[5];
 					datos[0] = resultado.getString("nombres");
 					datos[1] = resultado.getString("apellidos");
@@ -80,10 +105,10 @@ public class CreacionPedido {
 					datos[4] = resultado.getString("poblacion");
 					clientes.add(cliente.crearObjeto(resultado.getInt("idCliente"), datos));
 				}
-				
+
 				clientes.forEach(cliente -> {
 					interfaz.clientesExistentes.getItems()
-					.add(cliente.getIdCliente() + " - " + cliente.getNombre() + " " + cliente.getApellidos());
+							.add(cliente.getIdCliente() + " - " + cliente.getNombre() + " " + cliente.getApellidos());
 				});
 				interfaz.clientesExistentes.getSelectionModel().selectFirst();
 			} catch (SQLException e1) {
@@ -107,13 +132,13 @@ public class CreacionPedido {
 			Double precio = 0.0;
 			int cantidad = 0;
 
-			AnchorPane formulario = (AnchorPane)t.getContent();
-			
-			ChoiceBox<String> tipoHortaliza = (ChoiceBox<String>)formulario.getChildren().get(1);
+			AnchorPane formulario = (AnchorPane) t.getContent();
+
+			ChoiceBox<String> tipoHortaliza = (ChoiceBox<String>) formulario.getChildren().get(1);
 			String tipoElegido = tipoHortaliza.getSelectionModel().getSelectedItem();
 
-			TextField variedad = (TextField)formulario.getChildren().get(3);
-			Text variedadError = (Text)formulario.getChildren().get(4);
+			TextField variedad = (TextField) formulario.getChildren().get(3);
+			Text variedadError = (Text) formulario.getChildren().get(4);
 
 			// En caso de que esté vacío
 			if (variedad.getText().isEmpty()) {
@@ -130,8 +155,8 @@ public class CreacionPedido {
 				contenido = false;
 			}
 
-			TextField precioPagar = (TextField)formulario.getChildren().get(6);
-			Text precioError = (Text)formulario.getChildren().get(7);
+			TextField precioPagar = (TextField) formulario.getChildren().get(6);
+			Text precioError = (Text) formulario.getChildren().get(7);
 
 			// En caso de que esté vacío
 			if (precioPagar.getText().isEmpty()) {
@@ -149,8 +174,8 @@ public class CreacionPedido {
 				contenido = false;
 			}
 
-			TextField cantidadCharolas = (TextField)formulario.getChildren().get(9);
-			Text charolasError = (Text)formulario.getChildren().get(10);
+			TextField cantidadCharolas = (TextField) formulario.getChildren().get(9);
+			Text charolasError = (Text) formulario.getChildren().get(10);
 
 			// En caso de que esté vacío
 			if (cantidadCharolas.getText().isEmpty()) {
@@ -216,7 +241,14 @@ public class CreacionPedido {
 		pedido.setPagos(pagos);
 		pedido.setPlantas((plantas.toArray(new Planta[0])));
 
-		System.out.println(pedido);
+		if (!conexionPedido.registrarPedido(pedido)) {
+			System.err.println("Error");
+			return;
+		}
+
+		System.out.println("Exito");
+
+		limpiaInputs();
 	}
 
 	private void limpiaInputs() {
@@ -231,7 +263,7 @@ public class CreacionPedido {
 		interfaz.pagoError.setVisible(false);
 	}
 
-	public Scene getScene(){
+	public Scene getScene() {
 		return interfaz.getScene();
 	}
 }
