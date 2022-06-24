@@ -186,7 +186,7 @@ public class ControladorPedidos {
 			// int id, diasInt;
 			Double pagoInicial = Double.parseDouble("0.0");
 			String fechaPedido, fechaSiembra, fechaEntrega;
-			// String dias = "";
+			String dias = "";
 	
 			// id = Integer.parseInt(interfaz.clientesExistentes.getValue().split("-")[0].trim());
 	
@@ -283,19 +283,17 @@ public class ControladorPedidos {
 			fechaEntrega = fmp.fechaEntrega.getValue() == null ? "" : fmp.fechaEntrega.getValue().toString();
 	
 			// En caso de que esté vacío
-			if (fmp.pagoInicial.getText().isEmpty()) {
-				fmp.pagoError.setText("Pago requerido");
-				fmp.pagoError.setVisible(true);
-				contenido = false;
-			}
+			// if (fmp.pagoInicial.getText().isEmpty()) {
+			// 	fmp.pagoError.setText("Pago requerido");
+			// 	fmp.pagoError.setVisible(true);
+			// 	contenido = false;
+			// }
 	
 			// Si no se metió un pago válido
 			try {
 				pagoInicial = Double.parseDouble(fmp.pagoInicial.getText());
 			} catch (Exception exp) {
-				fmp.pagoError.setText("Valor incorrecto");
-				fmp.pagoError.setVisible(true);
-				contenido = false;
+				pagoInicial = 0.0;
 			}
 	
 			// En caso de que esté vacío
@@ -306,6 +304,7 @@ public class ControladorPedidos {
 			// }
 	
 			// // Si no se metió una cantidad válida
+			dias = fmp.diasAprox.getText();
 			// try {
 			// 	diasInt = Integer.parseInt(fmp.diasAprox.getText());
 			// 	dias = LocalDate.now().plusDays(diasInt).toString();

@@ -28,9 +28,11 @@ public class FormularioModificarPedido {
 	public Button registrar;
 	public Button cancelar;
 
-	public TextField nombre;
-	public Button entradaNombre;
-	public ChoiceBox<String> clientesExistentes;
+	private Label nombre;
+	private Label telefonos;
+	private Label poblacion;
+	// public Button entradaNombre;
+	// public ChoiceBox<String> clientesExistentes;
 
 	public TabPane plantas;
 	public Button agregarPlanta;
@@ -44,8 +46,8 @@ public class FormularioModificarPedido {
 	public Text fechaError;
 	public Text fechaSError;
 	public Text fechaEError;
-	public Text pagoError;
-	public Text diasError;
+	// public Text pagoError;
+	// public Text diasError;
 
 	public Mensajes mensajes;
 	
@@ -68,40 +70,50 @@ public class FormularioModificarPedido {
 		titleCliente.setFont(new Font("Segoe UI", 18.0));
 		
 		/////
-		nombre = new TextField();
-		nombre.setPromptText("Ingresa un nombre");
-		nombre.setLayoutX(75.0);
-		nombre.setLayoutY(82.0);
-		nombre.setPrefHeight(26.0);
-		nombre.setPrefWidth(200.0);
+		
+		// nombre = new TextField();
+		// nombre.setPromptText("Ingresa un nombre");
+		// nombre.setLayoutX(75.0);
+		// nombre.setLayoutY(82.0);
+		// nombre.setPrefHeight(26.0);
+		// nombre.setPrefWidth(200.0);
 
-		entradaNombre = new Button("Buscar");
-		entradaNombre.setLayoutX(275.0);
-		entradaNombre.setLayoutY(82.0);
-		entradaNombre.setMnemonicParsing(false);
-		entradaNombre.setPrefHeight(26.0);
-		entradaNombre.setPrefWidth(146.0);
-		entradaNombre.setStyle(
-			"-fx-background-radius: 50px; -fx-max-width: 80px;"
-		);
-		entradaNombre.setCursor(Cursor.HAND);
+		// entradaNombre = new Button("Buscar");
+		// entradaNombre.setLayoutX(275.0);
+		// entradaNombre.setLayoutY(82.0);
+		// entradaNombre.setMnemonicParsing(false);
+		// entradaNombre.setPrefHeight(26.0);
+		// entradaNombre.setPrefWidth(146.0);
+		// entradaNombre.setStyle(
+		// 	"-fx-background-radius: 50px; -fx-max-width: 80px;"
+		// );
+		// entradaNombre.setCursor(Cursor.HAND);
 
-		Text selCliente = new Text("Seleccionar Cliente");
-		selCliente.setLayoutX(65.0);
-		selCliente.setLayoutY(154.0);
-		selCliente.setStrokeType(StrokeType.OUTSIDE);
-		selCliente.setStrokeWidth(0.0);
+		// Text selCliente = new Text("Seleccionar Cliente");
+		// selCliente.setLayoutX(65.0);
+		// selCliente.setLayoutY(154.0);
+		// selCliente.setStrokeType(StrokeType.OUTSIDE);
+		// selCliente.setStrokeWidth(0.0);
 
-		clientesExistentes = new ChoiceBox<>();
-		clientesExistentes.setLayoutX(65.0);
-		clientesExistentes.setLayoutY(158.0);
-		clientesExistentes.setPrefHeight(25.0);
-		clientesExistentes.setPrefWidth(300.0);
+		// clientesExistentes = new ChoiceBox<>();
+		// clientesExistentes.setLayoutX(65.0);
+		// clientesExistentes.setLayoutY(158.0);
+		// clientesExistentes.setPrefHeight(25.0);
+		// clientesExistentes.setPrefWidth(300.0);
+
+		nombre = new Label("Nombre: ");
+		nombre.setLayoutX(100);
+		nombre.setLayoutY(100);
+		telefonos = new Label("Teléfonos: ");
+		telefonos.setLayoutX(100);
+		telefonos.setLayoutY(120);
+		poblacion = new Label("Población: ");
+		poblacion.setLayoutX(100);
+		poblacion.setLayoutY(140);
 
 		/////
 		Pane parteCliente = new Pane(
-			titleCliente, nombre, entradaNombre,
-			selCliente, clientesExistentes
+			titleCliente, nombre, telefonos, poblacion
 		);
 		parteCliente.setLayoutX(5.0);
 		parteCliente.setPrefHeight(448.0);
@@ -134,6 +146,7 @@ public class FormularioModificarPedido {
 		agregarPlanta.setLayoutX(1.0);
 		agregarPlanta.setLayoutY(457.0);
 		agregarPlanta.setMnemonicParsing(false);
+		agregarPlanta.setCursor(Cursor.HAND);
 		/////
 
 		Pane partePlantas = new Pane(
@@ -220,17 +233,18 @@ public class FormularioModificarPedido {
 		pagoInicial.setLayoutY(318.0);
 		pagoInicial.setPrefHeight(26.0);
 		pagoInicial.setPrefWidth(300.0);
+		pagoInicial.setEditable(false);
 
-		pagoError = new Text("Pago inicial requerido");
-		pagoError.setFill(Color.web("#dc1515"));
-		pagoError.setLayoutX(42.0);
-		pagoError.setLayoutY(357.0);
-		pagoError.setStrokeType(StrokeType.OUTSIDE);
-		pagoError.setStrokeWidth(0.0);
-		pagoError.setVisible(false);
+		// pagoError = new Text("Pago inicial requerido");
+		// pagoError.setFill(Color.web("#dc1515"));
+		// pagoError.setLayoutX(42.0);
+		// pagoError.setLayoutY(357.0);
+		// pagoError.setStrokeType(StrokeType.OUTSIDE);
+		// pagoError.setStrokeWidth(0.0);
+		// pagoError.setVisible(false);
 		/////
 
-		Label dap = new Label("Días aproximados hasta la entrega");
+		Label dap = new Label("Fecha aproximada");
 		dap.setLayoutX(42.0);
 		dap.setLayoutY(379.0);
 
@@ -239,22 +253,23 @@ public class FormularioModificarPedido {
 		diasAprox.setLayoutY(396.0);
 		diasAprox.setPrefHeight(26.0);
 		diasAprox.setPrefWidth(300.0);
+		diasAprox.setEditable(false);
 
-		diasError = new Text("Cantidad de días requeridos");
-		diasError.setFill(Color.web("#dc1515"));
-		diasError.setLayoutX(42.0);
-		diasError.setLayoutY(435.0);
-		diasError.setStrokeType(StrokeType.OUTSIDE);
-		diasError.setStrokeWidth(0.0);
-		diasError.setVisible(false);
+		// diasError = new Text("Cantidad de días requeridos");
+		// diasError.setFill(Color.web("#dc1515"));
+		// diasError.setLayoutX(42.0);
+		// diasError.setLayoutY(435.0);
+		// diasError.setStrokeType(StrokeType.OUTSIDE);
+		// diasError.setStrokeWidth(0.0);
+		// diasError.setVisible(false);
 		/////
 
 		Pane partePedido = new Pane(
 			titlePedido, fp, fecha, fechaError, 
 			fs, fechaSiembra, fechaSError,
 			fe, fechaEntrega, fechaEError,
-			pi, pagoInicial, pagoError,
-			dap, diasAprox, diasError
+			pi, pagoInicial,
+			dap, diasAprox
 		);
 		partePedido.setLayoutX(819.0);
 		partePedido.setPrefHeight(448.0);
@@ -286,6 +301,7 @@ public class FormularioModificarPedido {
 		registrar.setMnemonicParsing(false);
 		registrar.setPrefHeight(26.0);
 		registrar.setPrefWidth(146.0);
+		registrar.setCursor(Cursor.HAND);
 
 		cancelar = new Button("Cancelar");
 		cancelar.setLayoutX(697.0);
@@ -293,6 +309,7 @@ public class FormularioModificarPedido {
 		cancelar.setMnemonicParsing(false);
 		cancelar.setPrefHeight(26.0);
 		cancelar.setPrefWidth(146.0);
+		cancelar.setCursor(Cursor.HAND);
 
 		/////////////////////////////////////////////////////////
 
@@ -313,13 +330,13 @@ public class FormularioModificarPedido {
 		formularios.setPrefHeight(720.0);
 		formularios.setPrefWidth(1280.0);
 
-		pagoInicial.setOnMouseClicked(e -> {
-			pagoError.setVisible(false);
-		});
+		// pagoInicial.setOnMouseClicked(e -> {
+		// 	pagoError.setVisible(false);
+		// });
 
-		diasAprox.setOnMouseClicked(e -> {
-			diasError.setVisible(false);
-		});
+		// diasAprox.setOnMouseClicked(e -> {
+		// 	diasError.setVisible(false);
+		// });
 
 		escena = new Scene(formularios, 1280, 720);
 
@@ -426,6 +443,13 @@ public class FormularioModificarPedido {
 	}
 
 	public void abrir(Pedido pedido) {
+		nombre.setText("Nombre: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellidos());
+		telefonos.setText("Teléfono(s): ");
+		for (int i = 0; i < pedido.getCliente().getTelefonos().length; i++) {
+			telefonos.setText(telefonos.getText() + " " + pedido.getCliente().getTelefonos()[i]);
+		}
+		poblacion.setText("Población: " + pedido.getCliente().getPoblacion());
+
 		Tab planta1 = generaTabPlanta("Planta 1", pedido.getPlantas()[0]);
 		planta1.setClosable(false);
 		plantas.getTabs().clear();
@@ -461,8 +485,10 @@ public class FormularioModificarPedido {
 			}
 		}
 
+		diasAprox.setText(pedido.getFechaAproximada());
+		diasAprox.setDisable(true);
 		pagoInicial.setText(pedido.getPagos()[0].getCantidad() + "");
-
+		pagoInicial.setDisable(true);
 	}
 
 	public Tab generaTabPlanta(String nombre, Planta planta) {

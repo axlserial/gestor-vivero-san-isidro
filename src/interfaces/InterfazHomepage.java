@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
@@ -23,7 +22,7 @@ public class InterfazHomepage {
 	public InterfazHomepage(){
 
 		registrarCliente = new Button("Registrar Cliente");
-		registrarCliente.setPrefHeight(75.0);
+		registrarCliente.setPrefHeight(150.0);
 		registrarCliente.setPrefWidth(294.0);
 		registrarCliente.setStyle("-fx-background-color: #A6634B;");
 		registrarCliente.setTextFill(Color.WHITE);
@@ -31,7 +30,8 @@ public class InterfazHomepage {
 		registrarCliente.setFont(new Font("Segoe UI Semibold", 14.0));
 
 		registrarPedido = new Button("Registrar Pedido");
-		registrarPedido.setPrefHeight(75.0);
+		registrarPedido.setLayoutY(190);
+		registrarPedido.setPrefHeight(150.0);
 		registrarPedido.setPrefWidth(294.0);
 		registrarPedido.setStyle("-fx-background-color: #A6634B;");
 		registrarPedido.setTextFill(Color.WHITE);
@@ -39,7 +39,8 @@ public class InterfazHomepage {
 		registrarPedido.setFont(new Font("Segoe UI Semibold", 14.0));
 
 		registrarAbono = new Button("Registrar Abono");
-		registrarAbono.setPrefHeight(75.0);
+		registrarAbono.setLayoutY(380.0);
+		registrarAbono.setPrefHeight(150.0);
 		registrarAbono.setPrefWidth(294.0);
 		registrarAbono.setStyle("-fx-background-color: #A6634B;");
 		registrarAbono.setTextFill(Color.WHITE);
@@ -47,14 +48,15 @@ public class InterfazHomepage {
 		registrarAbono.setFont(new Font("Segoe UI Semibold", 14.0));
 
 		administrarPedidos = new Button("Administrar Pedidos");
-		administrarPedidos.setPrefHeight(75.0);
+		administrarPedidos.setLayoutY(570.0);
+		administrarPedidos.setPrefHeight(150.0);
 		administrarPedidos.setPrefWidth(294.0);
 		administrarPedidos.setStyle("-fx-background-color: #A6634B;");
 		administrarPedidos.setTextFill(Color.WHITE);
 		administrarPedidos.setCursor(Cursor.HAND);
 		administrarPedidos.setFont(new Font("Segoe UI Semibold", 14.0));
 
-		VBox literal = new VBox(
+		Pane literal = new Pane(
 			registrarCliente, registrarPedido, registrarAbono, administrarPedidos
 		);
 		literal.setLayoutY(-29.0);

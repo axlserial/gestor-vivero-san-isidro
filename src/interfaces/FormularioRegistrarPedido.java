@@ -151,6 +151,7 @@ public class FormularioRegistrarPedido {
 		agregarPlanta.setLayoutX(1.0);
 		agregarPlanta.setLayoutY(457.0);
 		agregarPlanta.setMnemonicParsing(false);
+		agregarPlanta.setCursor(Cursor.HAND);
 		/////
 
 		Pane partePlantas = new Pane(
@@ -263,6 +264,7 @@ public class FormularioRegistrarPedido {
 		registrar.setMnemonicParsing(false);
 		registrar.setPrefHeight(26.0);
 		registrar.setPrefWidth(146.0);
+		registrar.setCursor(Cursor.HAND);
 
 		cancelar = new Button("Cancelar");
 		cancelar.setLayoutX(697.0);
@@ -270,6 +272,7 @@ public class FormularioRegistrarPedido {
 		cancelar.setMnemonicParsing(false);
 		cancelar.setPrefHeight(26.0);
 		cancelar.setPrefWidth(146.0);
+		cancelar.setCursor(Cursor.HAND);
 
 		/////////////////////////////////////////////////////////
 

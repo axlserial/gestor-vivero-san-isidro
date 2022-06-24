@@ -59,7 +59,7 @@ public class ControladorAbono {
 				paginas = 1;
 			else
 				paginas = pedidos.size() % 2 == 0 ? paginas : paginas + 1;
-			interfazBusqueda.pag.setPageCount(paginas + 1);
+			interfazBusqueda.pag.setPageCount(paginas);
 		});
 
 		interfazBusqueda.pag.setPageFactory((indice) -> {
