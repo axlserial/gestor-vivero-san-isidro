@@ -8,6 +8,7 @@ public class ControladorHomepage {
 	private Stage escenario;
 	private InterfazHomepage interfaz;
 	private ControladorClientes rcc;
+	private ControladorPedidos cpp;
 	private CreacionPedido rp;
 	private ControladorAbono ca;
 	
@@ -29,6 +30,11 @@ public class ControladorHomepage {
 		interfaz.registrarAbono.setOnAction(e -> {
 			ca = new ControladorAbono(escenario, this.interfaz.getScene());
 			escenario.setScene(ca.getScene());
+		});
+
+		interfaz.administrarPedidos.setOnAction(e -> {
+			cpp = new ControladorPedidos(escenario, this.interfaz.getScene());
+			escenario.setScene(cpp.getScene());
 		});
 	}
 }

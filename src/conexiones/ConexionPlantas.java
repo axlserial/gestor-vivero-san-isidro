@@ -17,7 +17,7 @@ public class ConexionPlantas {
 
 	public ResultSet obtenerPlantasDePedido(int idPedido) {
 		String consulta = "";
-		consulta = "SELECT * FROM plantaPedido as PP INNER JOIN tipoHortaliza TH ON PP.idTipoHortaliza=TP.idTipoHortaliza WHERE PP.idPedido="
+		consulta = "SELECT * FROM plantaPedido as PP INNER JOIN tipoHortaliza TH ON PP.idTipoHortaliza=TH.idTipoHortaliza WHERE PP.idPedido="
 				+ idPedido;
 		try {
 			ResultSet resultado = conexion.executeQuery(consulta);

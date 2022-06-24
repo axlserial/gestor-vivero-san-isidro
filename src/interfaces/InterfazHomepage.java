@@ -18,6 +18,7 @@ public class InterfazHomepage {
 	public Button registrarCliente;
 	public Button registrarPedido;
 	public Button registrarAbono;
+	public Button administrarPedidos;
 
 	public InterfazHomepage(){
 
@@ -45,7 +46,17 @@ public class InterfazHomepage {
 		registrarAbono.setCursor(Cursor.HAND);
 		registrarAbono.setFont(new Font("Segoe UI Semibold", 14.0));
 
-		VBox literal = new VBox(registrarCliente, registrarPedido, registrarAbono);
+		administrarPedidos = new Button("Administrar Pedidos");
+		administrarPedidos.setPrefHeight(75.0);
+		administrarPedidos.setPrefWidth(294.0);
+		administrarPedidos.setStyle("-fx-background-color: #A6634B;");
+		administrarPedidos.setTextFill(Color.WHITE);
+		administrarPedidos.setCursor(Cursor.HAND);
+		administrarPedidos.setFont(new Font("Segoe UI Semibold", 14.0));
+
+		VBox literal = new VBox(
+			registrarCliente, registrarPedido, registrarAbono, administrarPedidos
+		);
 		literal.setLayoutY(-29.0);
 		literal.setPrefHeight(720.0);
 		literal.setPrefWidth(294.0);

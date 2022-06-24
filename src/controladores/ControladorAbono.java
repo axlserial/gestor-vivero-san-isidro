@@ -35,78 +35,7 @@ public class ControladorAbono {
 	
 	public ControladorAbono(Stage escenario, Scene anterior) {
 		interfazBusqueda = new BusquedaRegistrarAbono();
-
 		pedidos = new ArrayList<>();
-
-		Pedido ped = new Pedido();
-		Planta[] plants = new Planta[2];
-		AbonoPago[] abpago = new AbonoPago[2];
-		ped.setIdPedido(1);
-		ped.setFechaPedido("2022-06-22");
-		ped.setCliente(new Cliente());
-		plants[0] = new Planta();
-		plants[1] = new Planta();
-		abpago[0] = new AbonoPago();
-		abpago[1] = new AbonoPago();
-		ped.setPlantas(plants);
-		ped.setPagos(abpago);
-		pedidos.add(ped);
-
-		ped = new Pedido();
-		plants = new Planta[2];
-		abpago = new AbonoPago[2];
-		ped.setIdPedido(2);
-		ped.setFechaPedido("2022-06-22");
-		ped.setCliente(new Cliente());
-		plants[0] = new Planta();
-		plants[1] = new Planta();
-		abpago[0] = new AbonoPago();
-		abpago[1] = new AbonoPago();
-		ped.setPlantas(plants);
-		ped.setPagos(abpago);
-		pedidos.add(ped);
-
-		ped = new Pedido();
-		plants = new Planta[2];
-		abpago = new AbonoPago[2];
-		ped.setIdPedido(3);
-		ped.setFechaPedido("2022-06-22");
-		ped.setCliente(new Cliente());
-		plants[0] = new Planta();
-		plants[1] = new Planta();
-		abpago[0] = new AbonoPago();
-		abpago[1] = new AbonoPago();
-		ped.setPlantas(plants);
-		ped.setPagos(abpago);
-		pedidos.add(ped);
-
-		ped = new Pedido();
-		plants = new Planta[2];
-		abpago = new AbonoPago[2];
-		ped.setIdPedido(4);
-		ped.setFechaPedido("2022-06-22");
-		ped.setCliente(new Cliente());
-		plants[0] = new Planta();
-		plants[1] = new Planta();
-		abpago[0] = new AbonoPago();
-		abpago[1] = new AbonoPago();
-		ped.setPlantas(plants);
-		ped.setPagos(abpago);
-		pedidos.add(ped);
-
-		ped = new Pedido();
-		plants = new Planta[2];
-		abpago = new AbonoPago[2];
-		ped.setIdPedido(5);
-		ped.setFechaPedido("2022-06-22");
-		ped.setCliente(new Cliente());
-		plants[0] = new Planta();
-		plants[1] = new Planta();
-		abpago[0] = new AbonoPago();
-		abpago[1] = new AbonoPago();
-		ped.setPlantas(plants);
-		ped.setPagos(abpago);
-		pedidos.add(ped);
 
 		interfazBusqueda.principal.setOnAction(e -> {
 			escenario.setScene(anterior);
@@ -121,6 +50,7 @@ public class ControladorAbono {
 			String nombre = interfazBusqueda.busqueda.getText();
 			String fechaIni = interfazBusqueda.fechaInicial.getValue().toString();
 			String fechaFin = interfazBusqueda.fechaFinal.getValue().toString();
+			pedidos = buscarPedidos(nombre, fechaIni, fechaFin);
 
 			// Establece cantidad de páginas
 			int paginas = pedidos.size() / 4;
@@ -128,7 +58,7 @@ public class ControladorAbono {
 				paginas = 1;
 			else
 				paginas = pedidos.size() % 2 == 0 ? paginas : paginas + 1;
-			interfazBusqueda.pag.setPageCount(paginas);
+			interfazBusqueda.pag.setPageCount(paginas + 1);
 		});
 
 		interfazBusqueda.pag.setPageFactory((indice) -> {
@@ -227,6 +157,8 @@ public class ControladorAbono {
 				// Recorrer Pedidos
 				while(resultado.next()) {
 					Pedido aux = new Pedido();
+					aux.setIdPedido(resultado.getInt("idPedido"));
+					aux.setFechaPedido(resultado.getString("fechaPedido"));
 					Cliente clienteAux = new Cliente();
 					ArrayList<AbonoPago> abonos = new ArrayList<AbonoPago>();
 					ArrayList<Planta> plantas = new ArrayList<Planta>();
@@ -264,6 +196,7 @@ public class ControladorAbono {
 						plantas.add(plantaAux);
 					}
 					aux.setPlantas(plantas.toArray(new Planta[0]));
+					res.add(aux);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -163,7 +163,7 @@ public class FormularioRegistrarAbono {
 
 		Label dAbono = new Label();
 		for (int i = 0; i < pedido.getPagos().length; i++) {
-			dAbono.setText(dAbono.getText() + "Fecha abono: " + pedido.getPagos()[i].getFecha());
+			dAbono.setText(dAbono.getText() + "Fecha abono: " + pedido.getPagos()[i].getFecha() + "\n");
 			dAbono.setText(dAbono.getText() + "Cantidad: " + pedido.getPagos()[i].getCantidad() + "\n\n");
 		}
 		dAbono.setFont(new Font("Segoe UI", 12.0));
