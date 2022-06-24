@@ -90,7 +90,8 @@ public class ControladorPedidos {
 			datos.setAlignment(Pos.CENTER);
 			datos.setSpacing(20);
 
-			Label info = new Label("Pedido #" + actual.getIdPedido() + " - Fecha: " + actual.getFechaPedido());
+			Label info = new Label("Pedido #" + actual.getIdPedido() + "- Cliente: "
+			+ actual.getCliente().getNombre() + " " + actual.getCliente().getApellidos() + " - Fecha: " + actual.getFechaPedido());
 			info.setFont(new Font("Segoe UI", 18.0));
 			
 			Button modBtn = new Button("Modificar");
@@ -301,6 +302,7 @@ public class ControladorPedidos {
 			pedidos.remove(indice);
 
 			// Actualizar pedidos mostrados
+
 		}
 	}
 

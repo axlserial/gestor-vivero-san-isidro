@@ -444,10 +444,8 @@ public class FormularioModificarPedido {
 
 	public void abrir(Pedido pedido) {
 		nombre.setText("Nombre: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellidos());
-		telefonos.setText("Teléfono(s): ");
-		for (int i = 0; i < pedido.getCliente().getTelefonos().length; i++) {
-			telefonos.setText(telefonos.getText() + " " + pedido.getCliente().getTelefonos()[i]);
-		}
+		telefonos.setText("Teléfono: ");
+		telefonos.setText(telefonos.getText() + " " + pedido.getCliente().getTelefonos()[0]);
 		poblacion.setText("Población: " + pedido.getCliente().getPoblacion());
 
 		Tab planta1 = generaTabPlanta("Planta 1", pedido.getPlantas()[0]);
