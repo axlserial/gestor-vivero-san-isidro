@@ -68,7 +68,17 @@ public class ConexionPedido {
 	}
 
 	public Boolean eliminarPedido(int id) {
-		return true;
+		conexion = crea.abrirConexion();
+		String consulta = "";
+		consulta = "DELETE FROM pedidos WHERE idPedido=" + id;
+		try {
+			conexion.executeUpdate(consulta);
+			return true;
+		} catch (SQLException e) {
+			System.err.println(e);
+			System.err.println("Consulta: " + consulta);
+			return false;
+		}
 	}
 	
 	public void cerrarConexion() {
