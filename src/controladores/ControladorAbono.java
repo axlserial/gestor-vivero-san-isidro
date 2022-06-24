@@ -175,6 +175,9 @@ public class ControladorAbono {
 					Pedido aux = new Pedido();
 					aux.setIdPedido(resultado.getInt("idPedido"));
 					aux.setFechaPedido(resultado.getString("fechaPedido"));
+					aux.setFechaAproximada(resultado.getString("fechaAproximada"));
+					aux.setFechaSiembra(resultado.getString("fechaSiembra"));
+					aux.setFechaEntrega(resultado.getString("fechaEntrega"));
 					Cliente clienteAux = new Cliente();
 					ArrayList<AbonoPago> abonos = new ArrayList<AbonoPago>();
 					ArrayList<Planta> plantas = new ArrayList<Planta>();
