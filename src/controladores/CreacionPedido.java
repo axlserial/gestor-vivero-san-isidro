@@ -12,10 +12,8 @@ import conexiones.ConexionClientes;
 import conexiones.ConexionPedido;
 import interfaces.FormularioRegistrarPedido;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -25,14 +23,7 @@ public class CreacionPedido {
 
 	private FormularioRegistrarPedido interfaz;
 
-	private Button agregarPlanta;
-	private TabPane plantas;
 	private ArrayList<Planta> plantasRegistrar;
-
-	private Button principal;
-	private Button registrar;
-	private Button cancelar;
-
 	private boolean contenido;
 	
 	private ConexionPedido conexionPedido;
@@ -43,29 +34,25 @@ public class CreacionPedido {
 
 	public CreacionPedido(Stage escenario, Scene anterior){
 		interfaz = new FormularioRegistrarPedido();
-
-		this.plantas = interfaz.plantas;
-		this.agregarPlanta = interfaz.agregarPlanta;
-		this.principal = interfaz.principal;
-		this.registrar = interfaz.registrar;
-		this.cancelar = interfaz.cancelar;
-
-		agregarPlanta.setOnAction(e -> {
-			Tab planta = new Tab("Planta " + (plantas.getTabs().size() + 1));
+		
+		interfaz.agregarPlanta.setOnAction(e -> {
+			Tab planta = new Tab("Planta " + (interfaz.plantas.getTabs().size() + 1));
 			planta.setContent(interfaz.agregaTabPlanta());
-			plantas.getTabs().add(planta);
+			interfaz.plantas.getTabs().add(planta);
 		});
 
-		principal.setOnAction(e -> {
+		interfaz.principal.setOnAction(e -> {
 			escenario.setScene(anterior);
+			limpiaInputs();
 		});
 
-		registrar.setOnAction(e -> {
+		interfaz.registrar.setOnAction(e -> {
 			registrar();
 		});
 
-		cancelar.setOnAction(e -> {
+		interfaz.cancelar.setOnAction(e -> {
 			escenario.setScene(anterior);
+			limpiaInputs();
 		});
 
 		// Obtener clientes
@@ -105,7 +92,7 @@ public class CreacionPedido {
 		LocalDate fechaPedido;
 
 		plantasRegistrar = new ArrayList<>();
-		plantas.getTabs().forEach(t -> {
+		interfaz.plantas.getTabs().forEach(t -> {
 			String valor;
 			Double precio = 0.0;
 			int cantidad = 0;
@@ -138,7 +125,7 @@ public class CreacionPedido {
 
 			// En caso de que esté vacío
 			if (precioPagar.getText().isEmpty()) {
-				precioError.setText("Teléfono requerido");
+				precioError.setText("Precio requerido");
 				precioError.setVisible(true);
 				contenido = false;
 			}
@@ -157,7 +144,7 @@ public class CreacionPedido {
 
 			// En caso de que esté vacío
 			if (cantidadCharolas.getText().isEmpty()) {
-				charolasError.setText("Teléfono requerido");
+				charolasError.setText("Cantidad requerida");
 				charolasError.setVisible(true);
 				contenido = false;
 			}
@@ -166,8 +153,8 @@ public class CreacionPedido {
 			try {
 				cantidad = Integer.parseInt(cantidadCharolas.getText());
 			} catch (Exception e) {
-				precioError.setText("Valor incorrecto");
-				precioError.setVisible(true);
+				charolasError.setText("Valor incorrecto");
+				charolasError.setVisible(true);
 				contenido = false;
 			}
 
@@ -205,6 +192,18 @@ public class CreacionPedido {
 
 		// CAMPOS RELLENADOS CORRECTAMENTE	
 
+	}
+
+	private void limpiaInputs() {
+		interfaz.nombre.setText("");
+		Tab planta1 = new Tab("Planta 1");
+		planta1.setContent(interfaz.agregaTabPlanta());
+		planta1.setClosable(false);
+		interfaz.plantas.getTabs().clear();
+		interfaz.plantas.getTabs().add(planta1);
+		interfaz.fecha.setValue(LocalDate.now());
+		interfaz.pagoInicial.setText("");
+		interfaz.pagoError.setVisible(false);
 	}
 
 	public Scene getScene(){

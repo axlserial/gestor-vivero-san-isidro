@@ -266,6 +266,10 @@ public class FormularioRegistrarPedido {
 		formularios.setPrefHeight(720.0);
 		formularios.setPrefWidth(1280.0);
 
+		pagoInicial.setOnMouseClicked(e -> {
+			pagoError.setVisible(false);
+		});
+
 		escena = new Scene(formularios, 1280, 720);
 	}
 
