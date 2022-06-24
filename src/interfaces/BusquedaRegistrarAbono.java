@@ -20,6 +20,7 @@ public class BusquedaRegistrarAbono {
 	public Button buscar;
 	public Button cancelar;
 	public TextField numPedido;
+	public Mensajes mensajes;
 	
 	public BusquedaRegistrarAbono() {
 
@@ -98,6 +99,8 @@ public class BusquedaRegistrarAbono {
 		buscarAbono.setPrefWidth(1280.0);
 
 		escena = new Scene(buscarAbono, 1280, 720);
+
+		mensajes = new Mensajes();
 	}
 
 	public Scene getScene(){
