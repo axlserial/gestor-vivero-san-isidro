@@ -196,6 +196,8 @@ public class CreacionPedido {
 		pedido = new Pedido();
 		// Buscar cliente
 		clientes.forEach(c -> {
+			if (c.getIdCliente() == id)
+				cliente = c;
 		});
 		pedido.setCliente(cliente);
 		pedido.setFechaPedido(fechaPedido.toString());
@@ -204,8 +206,9 @@ public class CreacionPedido {
 		pagos[0].setCantidad(pagoInicial);
 		pagos[0].setFecha(fechaPedido.toString());
 		pedido.setPagos(pagos);
-		pedido.setPlantas((Planta[] )plantas.toArray());
+		pedido.setPlantas((plantas.toArray(new Planta[0])));
 
+		System.out.println(pedido);
 	}
 
 	private void limpiaInputs() {
