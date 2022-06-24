@@ -134,7 +134,7 @@ public class CreacionPedido {
 		interfaz.plantas.getTabs().forEach(t -> {
 			String valor;
 			Double precio = 0.0;
-			int cantidad = 0;
+			int cantidad = 0, tipo = 0;
 
 			AnchorPane formulario = (AnchorPane) t.getContent();
 
@@ -199,8 +199,18 @@ public class CreacionPedido {
 
 			if (contenido) {
 				Planta p = new Planta();
-				// Obtener id de tipo
-				p.setTipoHortaliza(1);
+				switch (tipoElegido) {
+					case "Jitomate":
+						tipo = 1;
+						break;
+					case "Cebolla":
+						tipo = 2;
+						break;
+					case "Tomate de Cáscara":
+						tipo = 3;
+						break;
+				}
+				p.setTipoHortaliza(tipo);
 				p.setVariedad(variedad.getText());
 				p.setPrecio(precio);
 				p.setNumeroCharolas(cantidad);
@@ -284,6 +294,8 @@ public class CreacionPedido {
 		interfaz.fecha.setValue(LocalDate.now());
 		interfaz.pagoInicial.setText("");
 		interfaz.pagoError.setVisible(false);
+		interfaz.diasAprox.setText("");
+		interfaz.diasError.setVisible(false);
 	}
 
 	public Scene getScene() {

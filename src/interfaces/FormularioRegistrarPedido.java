@@ -314,9 +314,9 @@ public class FormularioRegistrarPedido {
 		tiposHortaliza.setPrefHeight(26.0);
 		tiposHortaliza.setPrefWidth(300.0);
 
-		tiposHortaliza.getItems().addAll("Tipo 1");
-		tiposHortaliza.getItems().addAll("Tipo 2");
-		tiposHortaliza.getItems().addAll("Tipo 3");
+		tiposHortaliza.getItems().addAll("Jitomate");
+		tiposHortaliza.getItems().addAll("Cebolla");
+		tiposHortaliza.getItems().addAll("Tomate de Cáscara");
 		tiposHortaliza.getSelectionModel().selectFirst();
 		/////
 
