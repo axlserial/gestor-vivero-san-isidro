@@ -24,14 +24,14 @@ public class ControladorHomepage {
 		this.registrarPedido = this.interfaz.registrarPedido;
 		this.registrarAbono = this.interfaz.registrarAbono;
 
-		rcc = new ControladorClientes(escenario, this.interfaz.getScene());
-		rp = new CreacionPedido(escenario, this.interfaz.getScene());
 
 		this.registrarCliente.setOnAction(e -> {
+			rcc = new ControladorClientes(escenario, this.interfaz.getScene());
 			escenario.setScene(rcc.getScene());
 		});
 
 		this.registrarPedido.setOnAction(e -> {
+			rp = new CreacionPedido(escenario, this.interfaz.getScene());
 			escenario.setScene(rp.getScene());
 		});
 	}

@@ -23,7 +23,6 @@ public class CreacionPedido {
 
 	private FormularioRegistrarPedido interfaz;
 
-	private ArrayList<Planta> plantasRegistrar;
 	private boolean contenido;
 	
 	private ConexionPedido conexionPedido;
@@ -31,6 +30,7 @@ public class CreacionPedido {
 	private Pedido pedido;
 	private Cliente cliente;
 	private ArrayList<Cliente> clientes;
+	private ArrayList<Planta> plantas;
 
 	public CreacionPedido(Stage escenario, Scene anterior){
 		interfaz = new FormularioRegistrarPedido();
@@ -77,7 +77,6 @@ public class CreacionPedido {
 					.add(cliente.getNombre() + " " + cliente.getApellidos());
 				});
 				interfaz.clientesExistentes.getSelectionModel().selectFirst();
-				System.out.println(clientes);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -91,7 +90,7 @@ public class CreacionPedido {
 		Double pagoInicial;
 		LocalDate fechaPedido;
 
-		plantasRegistrar = new ArrayList<>();
+		plantas = new ArrayList<>();
 		interfaz.plantas.getTabs().forEach(t -> {
 			String valor;
 			Double precio = 0.0;
@@ -164,7 +163,7 @@ public class CreacionPedido {
 				p.setVariedad(variedad.getText());
 				p.setPrecio(precio);
 				p.setNumeroCharolas(cantidad);
-				plantasRegistrar.add(p);
+				plantas.add(p);
 			}
 		});
 
@@ -190,7 +189,13 @@ public class CreacionPedido {
 		if (!contenido)
 			return;
 
-		// CAMPOS RELLENADOS CORRECTAMENTE	
+		// CAMPOS RELLENADOS CORRECTAMENTE
+		pedido = new Pedido();
+		// Buscar cliente
+		clientes.forEach(c -> {
+		});
+		pedido.setCliente(cliente);
+
 
 	}
 
