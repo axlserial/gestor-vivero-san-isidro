@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Entidades.AbonoPago;
 import Entidades.Cliente;
 import Entidades.Pedido;
 import Entidades.Planta;
@@ -87,7 +88,7 @@ public class CreacionPedido {
 	@SuppressWarnings("unchecked")
 	void registrar() {
 		contenido = true;
-		Double pagoInicial;
+		Double pagoInicial = Double.parseDouble("0.0");
 		LocalDate fechaPedido;
 
 		plantas = new ArrayList<>();
@@ -195,7 +196,13 @@ public class CreacionPedido {
 		clientes.forEach(c -> {
 		});
 		pedido.setCliente(cliente);
-
+		pedido.setFechaPedido(fechaPedido.toString());
+		AbonoPago pagos[] = new AbonoPago[1];
+		pagos[0] = new AbonoPago();
+		pagos[0].setCantidad(pagoInicial);
+		pagos[0].setFecha(fechaPedido.toString());
+		pedido.setPagos(pagos);
+		pedido.setPlantas((Planta[] )plantas.toArray());
 
 	}
 
