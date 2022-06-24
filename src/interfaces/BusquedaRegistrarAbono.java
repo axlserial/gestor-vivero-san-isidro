@@ -1,9 +1,13 @@
 package interfaces;
 
+import java.time.LocalDate;
+
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -17,9 +21,14 @@ public class BusquedaRegistrarAbono {
 
 	private Scene escena;
 	public Button principal;
+	public TextField busqueda;
 	public Button buscar;
-	public Button cancelar;
-	public TextField numPedido;
+	public DatePicker fechaInicial;
+	public DatePicker fechaFinal;
+	public Button regresar;
+
+	public Pagination pag;
+
 	public Mensajes mensajes;
 	
 	public BusquedaRegistrarAbono() {
@@ -54,35 +63,62 @@ public class BusquedaRegistrarAbono {
 
 		/////////////////////////////////////////////////////////
 
-		Label ingNum = new Label("Ingresa el número del pedido");
-		ingNum.setLayoutX(527.0);
-		ingNum.setLayoutY(143.0);
-
-		numPedido = new TextField();
-		numPedido.setLayoutX(455.0);
-		numPedido.setLayoutY(168.0);
-		numPedido.setPrefHeight(26.0);
-		numPedido.setPrefWidth(300.0);
+		busqueda = new TextField();
+		busqueda.setLayoutX(411.0);
+		busqueda.setLayoutY(35.0);
+		busqueda.setPrefHeight(26.0);
+		busqueda.setPrefWidth(300.0);
+		busqueda.setPromptText("Ingresar # de pedido o nombre del cliente");
 
 		buscar = new Button("Buscar");
-		buscar.setLayoutX(565.0);
-		buscar.setLayoutY(220.0);
+		buscar.setLayoutX(719.0);
+		buscar.setLayoutY(35.0);
 		buscar.setMnemonicParsing(false);
 		buscar.setPrefHeight(26.0);
 		buscar.setPrefWidth(146.0);
 		buscar.setStyle("-fx-background-radius: 50px; -fx-max-width: 80px;");
 		buscar.setCursor(Cursor.HAND);
 
-		cancelar = new Button("Cancelar");
-		cancelar.setLayoutX(531.0);
-		cancelar.setLayoutY(450.0);
-		cancelar.setMnemonicParsing(false);
-		cancelar.setPrefHeight(26.0);
-		cancelar.setPrefWidth(146.0);
-		cancelar.setCursor(Cursor.HAND);
+		fechaInicial = new DatePicker();
+		fechaInicial.setLayoutX(864.0);
+		fechaInicial.setLayoutY(36.0);
+		fechaInicial.setPrefHeight(25.0);
+		fechaInicial.setPrefWidth(150.0);
+		fechaInicial.setPromptText("Fecha inicial");
+		fechaInicial.setValue(LocalDate.now());
+
+		fechaFinal = new DatePicker();
+		fechaFinal.setLayoutX(1031.0);
+		fechaFinal.setLayoutY(36.0);
+		fechaFinal.setPrefHeight(25.0);
+		fechaFinal.setPrefWidth(150.0);
+		fechaFinal.setPromptText("Fecha Final");
+		fechaFinal.setValue(LocalDate.now());
+
+		pag = new Pagination();
+		pag.setLayoutX(30.0);
+		pag.setLayoutY(88.0);
+		pag.setPrefHeight(382.0);
+		pag.setPrefWidth(1152.0);
+		pag.setMaxPageIndicatorCount(5);
+
+		Separator sep = new Separator();
+		sep.setLayoutX(356.0);
+		sep.setLayoutY(481.0);
+		sep.setPrefWidth(500.0);
+
+		regresar = new Button("Regresar");
+		regresar.setLayoutX(532.0);
+		regresar.setLayoutY(499.0);
+		regresar.setMnemonicParsing(false);
+		regresar.setPrefHeight(26.0);
+		regresar.setPrefWidth(146.0);
+		regresar.setCursor(Cursor.HAND);
 
 		AnchorPane cuerpo = new AnchorPane(
-			ingNum, numPedido, buscar, cancelar
+			busqueda, buscar, 
+			fechaInicial, fechaFinal, 
+			pag, sep, regresar
 		);
 		cuerpo.setLayoutX(36.0);
 		cuerpo.setLayoutY(129.0);
