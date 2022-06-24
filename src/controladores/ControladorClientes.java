@@ -4,59 +4,27 @@ import Entidades.Cliente;
 import conexiones.ConexionClientes;
 import interfaces.FormularioAgregarCliente;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorClientes {
 
 	private FormularioAgregarCliente interfaz;
-	private Button principal;
-	private Button registrar;
-	private Button cancelar;
-	private TextField nombres;
-	private TextField apellidos;
-	private TextField telefono1;
-	private TextField telefono2;
-	private TextField poblacion;
-
-	private Text nombresError;
-	private Text apellidosError;
-	private Text telefono1Error;
-	private Text telefono2Error;
-	private Text poblacionError;
-
 	private ConexionClientes conexion;
 	private Cliente cliente;
 
 	public ControladorClientes(Stage escenario, Scene anterior) {
 		interfaz = new FormularioAgregarCliente();
 
-		principal = interfaz.principal;
-		registrar = interfaz.registrar;
-		cancelar = interfaz.cancelar;
-		nombres = interfaz.nombres;
-		apellidos = interfaz.apellidos;
-		telefono1 = interfaz.telefono1;
-		telefono2 = interfaz.telefono2;
-		poblacion = interfaz.poblacion;
-		nombresError = interfaz.nombresError;
-		apellidosError = interfaz.apellidosError;
-		telefono1Error = interfaz.telefono1Error;
-		telefono2Error = interfaz.telefono2Error;
-		poblacionError = interfaz.poblacionError;
-
-		principal.setOnAction(e -> {
+		interfaz.principal.setOnAction(e -> {
 			escenario.setScene(anterior);
 			limpiaInputs();
 		});
 
-		registrar.setOnAction(e -> {
+		interfaz.registrar.setOnAction(e -> {
 			registrar();
 		});
 
-		cancelar.setOnAction(e -> {
+		interfaz.cancelar.setOnAction(e -> {
 			escenario.setScene(anterior);
 			limpiaInputs();
 		});
@@ -71,56 +39,56 @@ public class ControladorClientes {
 
 		// En caso de que algún campo esté vacío
 		boolean contenido = true;
-		if (nombres.getText().isEmpty()) {
-			nombresError.setText("Nombre(s) requerido(s)");
-			nombresError.setVisible(true);
+		if (interfaz.nombres.getText().isEmpty()) {
+			interfaz.nombresError.setText("Nombre(s) requerido(s)");
+			interfaz.nombresError.setVisible(true);
 			contenido = false;
 		}
 
 		// En caso de que no se introduzcan solo letras
-		valor = nombres.getText().replaceAll("\\s+", "");
-		if (!nombres.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
-			nombresError.setText("Solo se aceptan letras");
-			nombresError.setVisible(true);
+		valor = interfaz.nombres.getText().replaceAll("\\s+", "");
+		if (!interfaz.nombres.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
+			interfaz.nombresError.setText("Solo se aceptan letras");
+			interfaz.nombresError.setVisible(true);
 			contenido = false;
 		}
 
-		if (apellidos.getText().isEmpty()) {
-			apellidosError.setText("Apellido(s) requerido(s)");
-			apellidosError.setVisible(true);
+		if (interfaz.apellidos.getText().isEmpty()) {
+			interfaz.apellidosError.setText("Apellido(s) requerido(s)");
+			interfaz.apellidosError.setVisible(true);
 			contenido = false;
 		}
 
 		// En caso de que no se introduzcan solo letras
-		valor = apellidos.getText().replaceAll("\\s+", "");
-		if (!apellidos.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
-			apellidosError.setText("Solo se aceptan letras");
-			apellidosError.setVisible(true);
+		valor = interfaz.apellidos.getText().replaceAll("\\s+", "");
+		if (!interfaz.apellidos.getText().isEmpty() && !valor.matches("^[a-zA-Z\\Á\\á\\É\\é\\Í\\í\\Ó\\ó\\Ú\\ú\\Ñ\\ñ]+$")) {
+			interfaz.apellidosError.setText("Solo se aceptan letras");
+			interfaz.apellidosError.setVisible(true);
 			contenido = false;
 		}
 
-		if (telefono1.getText().isEmpty()) {
-			telefono1Error.setText("Teléfono requerido");
-			telefono1Error.setVisible(true);
+		if (interfaz.telefono1.getText().isEmpty()) {
+			interfaz.telefono1Error.setText("Teléfono requerido");
+			interfaz.telefono1Error.setVisible(true);
 			contenido = false;
 		}
 
 		// Telefono1: En caso de que no se introduzcan solo números
-		if (!telefono1.getText().isEmpty() && !telefono1.getText().matches("[0-9]*")) {
-			telefono1Error.setText("Solo se aceptan valores númericos");
-			telefono1Error.setVisible(true);
+		if (!interfaz.telefono1.getText().isEmpty() && !interfaz.telefono1.getText().matches("[0-9]*")) {
+			interfaz.telefono1Error.setText("Solo se aceptan valores númericos");
+			interfaz.telefono1Error.setVisible(true);
 			contenido = false;
 		}
 
 		// Telefono 2: En caso de que no se introduzcan solo números
-		if (!telefono2.getText().isEmpty() && !telefono2.getText().matches("[0-9]*")) {
-			telefono2Error.setText("Solo se aceptan valores númericos");
-			telefono2Error.setVisible(true);
+		if (!interfaz.telefono2.getText().isEmpty() && !interfaz.telefono2.getText().matches("[0-9]*")) {
+			interfaz.telefono2Error.setText("Solo se aceptan valores númericos");
+			interfaz.telefono2Error.setVisible(true);
 			contenido = false;
 		}
 
-		if (poblacion.getText().isEmpty()) {
-			poblacionError.setVisible(true);
+		if (interfaz.poblacion.getText().isEmpty()) {
+			interfaz.poblacionError.setVisible(true);
 			contenido = false;
 		}
 
@@ -131,10 +99,10 @@ public class ControladorClientes {
 		// CAMPOS RELLENADOS CORRECTAMENTE
 
 		// Guardar en Base de Datos
-		cliente.setNombre(nombres.getText());
-		cliente.setApellidos(apellidos.getText());
-		cliente.setPoblacion(poblacion.getText());
-		String[] telefonos = {telefono1.getText(), telefono2.getText()};
+		cliente.setNombre(interfaz.nombres.getText());
+		cliente.setApellidos(interfaz.apellidos.getText());
+		cliente.setPoblacion(interfaz.poblacion.getText());
+		String[] telefonos = {interfaz.telefono1.getText(), interfaz.telefono2.getText()};
 		cliente.setTelefonos(telefonos);
 		if (!conexion.guardarCliente(cliente)) {
 			interfaz.mensajes.error("Error al guardar el cliente");
@@ -149,11 +117,16 @@ public class ControladorClientes {
 	}
 
 	private void limpiaInputs() {
-		nombres.setText("");
-		apellidos.setText("");
-		telefono1.setText("");
-		telefono2.setText("");
-		poblacion.setText("");
+		interfaz.nombres.setText("");
+		interfaz.apellidos.setText("");
+		interfaz.telefono1.setText("");
+		interfaz.telefono2.setText("");
+		interfaz.poblacion.setText("");
+		interfaz.nombresError.setVisible(false);
+		interfaz.apellidosError.setVisible(false);
+		interfaz.telefono1Error.setVisible(false);
+		interfaz.telefono2Error.setVisible(false);
+		interfaz.poblacionError.setVisible(false);
 	}
 
 	public Scene getScene() {

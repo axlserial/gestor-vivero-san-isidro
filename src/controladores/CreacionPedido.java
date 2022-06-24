@@ -74,7 +74,7 @@ public class CreacionPedido {
 				
 				clientes.forEach(cliente -> {
 					interfaz.clientesExistentes.getItems()
-					.add(cliente.getNombre() + " " + cliente.getApellidos());
+					.add(cliente.getIdCliente() + " - " + cliente.getNombre() + " " + cliente.getApellidos());
 				});
 				interfaz.clientesExistentes.getSelectionModel().selectFirst();
 			} catch (SQLException e1) {
@@ -89,6 +89,8 @@ public class CreacionPedido {
 		contenido = true;
 		Double pagoInicial;
 		LocalDate fechaPedido;
+
+		int id = Integer.parseInt(interfaz.clientesExistentes.getValue().split("-")[0].trim());
 
 		plantas = new ArrayList<>();
 		interfaz.plantas.getTabs().forEach(t -> {
