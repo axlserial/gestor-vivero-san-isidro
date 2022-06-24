@@ -13,10 +13,10 @@ public class ConexionAbono {
 
 	public ConexionAbono() {
 		crea = new CreaConexion();
-		conexion = crea.getStatement();
 	}
 
 	public ResultSet obtenerAbonosDePedido(int idPedido) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "SELECT * FROM abonosPago WHERE idPedido=" + idPedido;
 		try {
@@ -29,6 +29,7 @@ public class ConexionAbono {
 	}
 
 	public Boolean registrarAbono(AbonoPago abono, int idPedido) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "INSERT INTO abonosPago (fecha, cantidad, idPedido) VALUES ";
 		consulta += "('" + abono.getFecha() + "', " + abono.getCantidad() + ", " + idPedido + ")";
@@ -41,4 +42,9 @@ public class ConexionAbono {
 			return false;
 		}
 	}
+	
+	public void cerrarConexion() {
+		crea.cerrarConexion();
+	}
+
 }

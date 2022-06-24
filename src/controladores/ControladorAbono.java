@@ -143,6 +143,7 @@ public class ControladorAbono {
 				ff.mensajes.error("Error al Intentar Registrar el Abono");
 				return;
 			}
+			conexionAbono.cerrarConexion();
 
 			// mensaje de exito
 			ff.mensajes.mensaje("Registro correcto");
@@ -206,6 +207,10 @@ public class ControladorAbono {
 					aux.setPlantas(plantas.toArray(new Planta[0]));
 					res.add(aux);
 				}
+				conexionPedido.cerrarConexion();
+				conexionAbono.cerrarConexion();
+				conexionClientes.cerrarConexion();
+				conexionPlantas.cerrarConexion();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

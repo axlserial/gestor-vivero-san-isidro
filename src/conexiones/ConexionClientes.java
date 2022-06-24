@@ -13,12 +13,10 @@ public class ConexionClientes {
 
 	public ConexionClientes() {
 		crea = new CreaConexion();
-
-		// Obtener conexión
-		conexion = crea.getStatement();
 	}
 
 	public Boolean guardarCliente(Cliente cliente) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "INSERT INTO clientes (nombres, apellidos, telefono1, telefono2, poblacion) VALUES ";
 		String[] telefonos = new String[2];
@@ -35,6 +33,7 @@ public class ConexionClientes {
 	}
 
 	public ResultSet obtenerCliente(int id) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "SELECT * FROM clientes WHERE idCliente=" + id;
 		try {
@@ -47,14 +46,20 @@ public class ConexionClientes {
 	}
 
 	public ResultSet buscarClientes(String nombre) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "SELECT * FROM clientes WHERE nombres LIKE '%" + nombre + "%'";
 		try {
-			return conexion.executeQuery(consulta);
+			ResultSet resultado = conexion.executeQuery(consulta);
+			return resultado;
 		} catch (SQLException e) {
 			System.err.println(e);
 			return null;
 		}
 	}
 	
+	public void cerrarConexion() {
+		crea.cerrarConexion();
+	}
+
 }

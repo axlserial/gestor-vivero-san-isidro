@@ -108,6 +108,7 @@ public class ControladorClientes {
 			interfaz.mensajes.error("Error al guardar el cliente");
 			return;
 		}
+		conexion.cerrarConexion();
 
 		// Muestra alerta de éxito
 		interfaz.mensajes.mensaje("Usuario agregado exitosamente");

@@ -12,10 +12,10 @@ public class ConexionPlantas {
 
 	public ConexionPlantas() {
 		crea = new CreaConexion();
-		conexion = crea.getStatement();
 	}
 
 	public ResultSet obtenerPlantasDePedido(int idPedido) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "SELECT * FROM plantaPedido as PP INNER JOIN tipoHortaliza TH ON PP.idTipoHortaliza=TH.idTipoHortaliza WHERE PP.idPedido="
 				+ idPedido;
@@ -27,4 +27,9 @@ public class ConexionPlantas {
 			return null;
 		}
 	}
+	
+	public void cerrarConexion() {
+		crea.cerrarConexion();
+	}
+
 }

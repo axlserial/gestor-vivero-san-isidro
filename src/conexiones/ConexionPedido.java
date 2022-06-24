@@ -14,10 +14,10 @@ public class ConexionPedido {
 
 	public ConexionPedido() {
 		crea = new CreaConexion();
-		conexion = crea.getStatement();
 	}
 
 	public Boolean registrarPedido(Pedido pedido) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "INSERT INTO pedidos (idCliente, fechaPedido, fechaAproximada) VALUES ";
 		consulta += "(" + pedido.getCliente().getIdCliente() + ", '" + pedido.getFechaPedido() + "', '"
@@ -49,12 +49,14 @@ public class ConexionPedido {
 	}
 
 	public ResultSet buscarPedido(String nombre, String fechaInicial, String fechaFinal) {
+		conexion = crea.abrirConexion();
 		String consulta = "";
 		consulta = "SELECT P.* FROM pedidos as P INNER JOIN clientes C ON C.idCliente=P.idCliente WHERE C.nombres LIKE '%"
 				+ nombre + "%' OR C.apellidos LIKE '% " + nombre + "%' AND fechaPedido >='" + fechaInicial
 				+ "' AND fechaPedido <= '" + fechaFinal + "'";
 		try {
-			return conexion.executeQuery(consulta);
+			ResultSet resultado = conexion.executeQuery(consulta);
+			return resultado;
 		} catch (SQLException e) {
 			System.err.println(e);
 			return null;
@@ -68,4 +70,9 @@ public class ConexionPedido {
 	public Boolean eliminarPedido(int id) {
 		return true;
 	}
+	
+	public void cerrarConexion() {
+		crea.cerrarConexion();
+	}
+
 }

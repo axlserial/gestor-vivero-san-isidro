@@ -75,6 +75,7 @@ public class CreacionPedido {
 						datos[4] = resultado.getString("poblacion");
 						clientes.add(cliente.crearObjeto(resultado.getInt("idCliente"), datos));
 					}
+					conexionClientes.cerrarConexion();
 
 					interfaz.clientesExistentes.getItems().clear();
 					clientes.forEach(cliente -> {
@@ -105,6 +106,7 @@ public class CreacionPedido {
 					datos[4] = resultado.getString("poblacion");
 					clientes.add(cliente.crearObjeto(resultado.getInt("idCliente"), datos));
 				}
+				conexionClientes.cerrarConexion();
 
 				clientes.forEach(cliente -> {
 					interfaz.clientesExistentes.getItems()
@@ -279,6 +281,7 @@ public class CreacionPedido {
 			return;
 		}
 
+		conexionPedido.cerrarConexion();
 		interfaz.mensajes.mensaje("Pedido Registrado Exitosamente");
 
 		limpiaInputs();
