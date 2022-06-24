@@ -144,6 +144,13 @@ public class ControladorAbono {
 				return;
 			}
 			conexionAbono.cerrarConexion();
+			AbonoPago pagos[] = pedido.getPagos();
+			AbonoPago nuevos[] = new AbonoPago[pagos.length + 1];
+			for (int i = 0; i < pagos.length; i++) {
+				nuevos[i] = pagos[i];
+			}
+			nuevos[pagos.length] = nuevoAbono;
+			pedido.setPagos(nuevos);
 
 			// mensaje de exito
 			ff.mensajes.mensaje("Registro correcto");
@@ -181,6 +188,7 @@ public class ControladorAbono {
 					String telefonos[] = { clienteRes.getString("telefono1"), clienteRes.getString("telefono2") };
 					clienteAux.setTelefonos(telefonos);
 					aux.setCliente(clienteAux);
+					conexionClientes.cerrarConexion();
 
 					// ObtenerPagos
 					ResultSet abonosRes = conexionAbono.obtenerAbonosDePedido(resultado.getInt("idPedido"));
@@ -192,6 +200,7 @@ public class ControladorAbono {
 						abonos.add(abonoAux);
 					}
 					aux.setPagos(abonos.toArray(new AbonoPago[0]));
+					conexionAbono.cerrarConexion();
 
 					// Obtener Plantas
 					ResultSet plantasRes = conexionPlantas.obtenerPlantasDePedido(resultado.getInt("idPedido"));
@@ -206,11 +215,9 @@ public class ControladorAbono {
 					}
 					aux.setPlantas(plantas.toArray(new Planta[0]));
 					res.add(aux);
+					conexionPlantas.cerrarConexion();
 				}
 				conexionPedido.cerrarConexion();
-				conexionAbono.cerrarConexion();
-				conexionClientes.cerrarConexion();
-				conexionPlantas.cerrarConexion();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
