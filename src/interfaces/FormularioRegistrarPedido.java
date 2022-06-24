@@ -1,17 +1,17 @@
 package interfaces;
 
+import java.time.LocalDate;
+
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,24 +28,18 @@ public class FormularioRegistrarPedido {
 	public Button registrar;
 	public Button cancelar;
 
-	public RadioButton rbExistente;
-	public RadioButton rbNuevo;
-
-	public Pane panelExistentes;
-	public Pane panelNuevo;
-
-	public TextField nombres;
-	public TextField apellidos;
-	public TextField telefono;
-	public TextField poblacion;
-
-	public Text nombresError;
-	public Text apellidosError;
-	public Text telefonoError;
-	public Text poblacionError;
+	public TextField nombre;
+	public Button entradaNombre;
+	public ChoiceBox<String> clientesExistentes;
 
 	public TabPane plantas;
 	public Button agregarPlanta;
+
+	public DatePicker fecha;
+	public TextField pagoInicial;
+
+	public Text fechaError;
+	public Text pagoError;
 	
 	public FormularioRegistrarPedido(){
 		
@@ -85,130 +79,42 @@ public class FormularioRegistrarPedido {
 		titleCliente.setStrokeType(StrokeType.OUTSIDE);
 		titleCliente.setStrokeWidth(0.0);
 		titleCliente.setFont(new Font("Segoe UI", 18.0));
-		/////
-
-		ToggleGroup fuenteCliente = new ToggleGroup();
-
-		rbExistente = new RadioButton("Seleccionar de cartera de clientes");
-		rbExistente.setToggleGroup(fuenteCliente);
-		rbExistente.setId("1");
-		rbExistente.setLayoutX(50.0);
-		rbExistente.setLayoutY(70.0);
-		rbExistente.setMnemonicParsing(false);
 		
-		rbNuevo = new RadioButton("Registrar cliente nuevo");
-		rbNuevo.setToggleGroup(fuenteCliente);
-		rbNuevo.setId("2");
-		rbNuevo.setLayoutX(50.0);
-		rbNuevo.setLayoutY(94.0);
-		rbNuevo.setMnemonicParsing(false);
-
-		fuenteCliente.selectToggle(rbNuevo);
 		/////
+		nombre = new TextField();
+		nombre.setPromptText("Ingresa un nombre");
+		nombre.setLayoutX(75.0);
+		nombre.setLayoutY(82.0);
+		nombre.setPrefHeight(26.0);
+		nombre.setPrefWidth(200.0);
 
-		ChoiceBox clientesExistentes = new ChoiceBox<>();
-		clientesExistentes.setLayoutX(53.0);
-		clientesExistentes.setLayoutY(29.0);
+		entradaNombre = new Button("Buscar");
+		entradaNombre.setLayoutX(275.0);
+		entradaNombre.setLayoutY(82.0);
+		entradaNombre.setMnemonicParsing(false);
+		entradaNombre.setPrefHeight(26.0);
+		entradaNombre.setPrefWidth(146.0);
+		entradaNombre.setStyle(
+			"-fx-background-radius: 50px; -fx-max-width: 80px;"
+		);
+		entradaNombre.setCursor(Cursor.HAND);
+
+		Text selCliente = new Text("Seleccionar Cliente");
+		selCliente.setLayoutX(65.0);
+		selCliente.setLayoutY(154.0);
+		selCliente.setStrokeType(StrokeType.OUTSIDE);
+		selCliente.setStrokeWidth(0.0);
+
+		clientesExistentes = new ChoiceBox<>();
+		clientesExistentes.setLayoutX(65.0);
+		clientesExistentes.setLayoutY(158.0);
 		clientesExistentes.setPrefHeight(25.0);
 		clientesExistentes.setPrefWidth(300.0);
 
-		panelExistentes = new Pane(clientesExistentes);
-		panelExistentes.setLayoutY(126.0);
-		panelExistentes.setPrefHeight(323.0);
-		panelExistentes.setPrefWidth(384.0);
-		panelExistentes.setVisible(false);
 		/////
-
-		Label nombresLabel = new Label("Nombre(s)");
-		nombresLabel.setLayoutX(72.0);
-		nombresLabel.setLayoutY(10.0);
-
-		nombres = new TextField();
-		nombres.setLayoutX(72.0);
-		nombres.setLayoutY(28.0);
-		nombres.setPrefHeight(26.0);
-		nombres.setPrefWidth(300.0);
-
-		nombresError = new Text();
-		nombresError.setFill(Color.web("#dc1515"));
-		nombresError.setLayoutX(72.0);
-		nombresError.setLayoutY(67.0);
-		nombresError.setStrokeType(StrokeType.OUTSIDE);
-		nombresError.setStrokeWidth(0.0);
-		nombresError.setVisible(false);
-		/////
-
-		Label apellidosLabel = new Label("Apellido(s)");
-		apellidosLabel.setLayoutX(72.0);
-		apellidosLabel.setLayoutY(88.0);
-
-		apellidos = new TextField();
-		apellidos.setLayoutX(72.0);
-		apellidos.setLayoutY(106.0);
-		apellidos.setPrefHeight(26.0);
-		apellidos.setPrefWidth(300.0);
-
-		apellidosError = new Text();
-		apellidosError.setFill(Color.web("#dc1515"));
-		apellidosError.setLayoutX(72.0);
-		apellidosError.setLayoutY(145.0);
-		apellidosError.setStrokeType(StrokeType.OUTSIDE);
-		apellidosError.setStrokeWidth(0.0);
-		apellidosError.setVisible(false);
-		/////
-
-		Label telefonoLabel = new Label("Teléfono");
-		telefonoLabel.setLayoutX(72.0);
-		telefonoLabel.setLayoutY(168.0);
-
-		telefono = new TextField();
-		telefono.setLayoutX(72.0);
-		telefono.setLayoutY(186.0);
-		telefono.setPrefHeight(26.0);
-		telefono.setPrefWidth(300.0);
-
-		telefonoError = new Text();
-		telefonoError.setFill(Color.web("#dc1515"));
-		telefonoError.setLayoutX(72.0);
-		telefonoError.setLayoutY(227.0);
-		telefonoError.setStrokeType(StrokeType.OUTSIDE);
-		telefonoError.setStrokeWidth(0.0);
-		telefonoError.setVisible(false);
-		/////
-
-		Label poblacionLabel = new Label("Población");
-		poblacionLabel.setLayoutX(72.0);
-		poblacionLabel.setLayoutY(251.0);
-
-		poblacion = new TextField();
-		poblacion.setLayoutX(72.0);
-		poblacion.setLayoutY(269.0);
-		poblacion.setPrefHeight(26.0);
-		poblacion.setPrefWidth(300.0);
-
-		poblacionError = new Text("Población requerida");
-		poblacionError.setFill(Color.web("#dc1515"));
-		poblacionError.setLayoutX(72.0);
-		poblacionError.setLayoutY(308.0);
-		poblacionError.setStrokeType(StrokeType.OUTSIDE);
-		poblacionError.setStrokeWidth(0.0);
-		poblacionError.setVisible(false);
-		/////
-
-		panelNuevo = new Pane(
-			nombres, nombresLabel, nombresError,
-			apellidos, apellidosLabel, apellidosError,
-			telefono, telefonoLabel, telefonoError,
-			poblacion, poblacionLabel, poblacionError
-		);
-		panelNuevo.setLayoutX(1.0);
-		panelNuevo.setLayoutY(129.0);
-		panelNuevo.setPrefHeight(323.0);
-		panelNuevo.setPrefWidth(384.0);
-
 		Pane parteCliente = new Pane(
-			titleCliente,rbExistente, rbNuevo,
-			panelExistentes, panelNuevo
+			titleCliente, nombre, entradaNombre,
+			selCliente, clientesExistentes
 		);
 		parteCliente.setLayoutX(5.0);
 		parteCliente.setPrefHeight(448.0);
@@ -264,26 +170,44 @@ public class FormularioRegistrarPedido {
 		fp.setLayoutX(42.0);
 		fp.setLayoutY(70.0);
 
-		DatePicker fecha = new DatePicker();
+		fecha = new DatePicker();
 		fecha.setLayoutX(42.0);
 		fecha.setLayoutY(87.0);
 		fecha.setPrefHeight(25.0);
 		fecha.setPrefWidth(300.0);
+		fecha.setValue(LocalDate.now());
+
+		fechaError = new Text("Fecha requerida");
+		fechaError.setFill(Color.web("#dc1515"));
+		fechaError.setLayoutX(42.0);
+		fechaError.setLayoutY(125.0);
+		fechaError.setStrokeType(StrokeType.OUTSIDE);
+		fechaError.setStrokeWidth(0.0);
+		fechaError.setVisible(false);
 		/////
 
 		Label pi = new Label("Pago inicial");
 		pi.setLayoutX(42.0);
 		pi.setLayoutY(140.0);
 
-		TextField pagoInicial = new TextField();
+		pagoInicial = new TextField();
 		pagoInicial.setLayoutX(42.0);
 		pagoInicial.setLayoutY(157.0);
 		pagoInicial.setPrefHeight(26.0);
 		pagoInicial.setPrefWidth(300.0);
+
+		pagoError = new Text("Pago inicial requerido");
+		pagoError.setFill(Color.web("#dc1515"));
+		pagoError.setLayoutX(42.0);
+		pagoError.setLayoutY(196.0);
+		pagoError.setStrokeType(StrokeType.OUTSIDE);
+		pagoError.setStrokeWidth(0.0);
+		pagoError.setVisible(false);
 		/////
 
 		Pane partePedido = new Pane(
-			titlePedido, fp, fecha, pi, pagoInicial
+			titlePedido, fp, fecha, fechaError, 
+			pi, pagoInicial, pagoError
 		);
 		partePedido.setLayoutX(819.0);
 		partePedido.setPrefHeight(448.0);
@@ -428,6 +352,18 @@ public class FormularioRegistrarPedido {
 		contendorPlanta.setMinWidth(0.0);
 		contendorPlanta.setPrefHeight(180.0);
 		contendorPlanta.setPrefWidth(310.0);
+
+		variedad.setOnMouseClicked(e -> {
+			variedadError.setVisible(false);
+		});
+
+		precioPagar.setOnMouseClicked(e -> {
+			precioError.setVisible(false);
+		});
+
+		cantidadCharolas.setOnMouseClicked(e -> {
+			charolasError.setVisible(false);
+		});
 
 		return contendorPlanta;
 	}
