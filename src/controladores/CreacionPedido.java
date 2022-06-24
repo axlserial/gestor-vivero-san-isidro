@@ -55,6 +55,14 @@ public class CreacionPedido {
 			limpiaInputs();
 		});
 
+		// Cuando se presiona el botón buscar
+		interfaz.entradaNombre.setOnAction(e -> {
+			// Se obtiene el valor del input
+			String nombre = interfaz.nombre.getText();
+
+			// busqueda y guardado de los resultados en clientesExistentes
+		});
+
 		// Obtener clientes
 		cliente = new Cliente();
 		conexionClientes = new ConexionClientes();
