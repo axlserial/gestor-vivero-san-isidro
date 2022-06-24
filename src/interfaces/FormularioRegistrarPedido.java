@@ -37,9 +37,13 @@ public class FormularioRegistrarPedido {
 
 	public DatePicker fecha;
 	public TextField pagoInicial;
+	public TextField diasAprox;
 
 	public Text fechaError;
 	public Text pagoError;
+	public Text diasError;
+
+	public Mensajes mensajes;
 	
 	public FormularioRegistrarPedido(){
 		
@@ -205,9 +209,29 @@ public class FormularioRegistrarPedido {
 		pagoError.setVisible(false);
 		/////
 
+		Label dap = new Label("Días aproximados hasta la entrega");
+		dap.setLayoutX(42.0);
+		dap.setLayoutY(218.0);
+
+		diasAprox = new TextField();
+		diasAprox.setLayoutX(42.0);
+		diasAprox.setLayoutY(235.0);
+		diasAprox.setPrefHeight(26.0);
+		diasAprox.setPrefWidth(300.0);
+
+		diasError = new Text("Cantidad de días requeridos");
+		diasError.setFill(Color.web("#dc1515"));
+		diasError.setLayoutX(42.0);
+		diasError.setLayoutY(274.0);
+		diasError.setStrokeType(StrokeType.OUTSIDE);
+		diasError.setStrokeWidth(0.0);
+		diasError.setVisible(false);
+		/////
+
 		Pane partePedido = new Pane(
 			titlePedido, fp, fecha, fechaError, 
-			pi, pagoInicial, pagoError
+			pi, pagoInicial, pagoError,
+			dap, diasAprox, diasError
 		);
 		partePedido.setLayoutX(819.0);
 		partePedido.setPrefHeight(448.0);
@@ -270,7 +294,13 @@ public class FormularioRegistrarPedido {
 			pagoError.setVisible(false);
 		});
 
+		diasAprox.setOnMouseClicked(e -> {
+			diasError.setVisible(false);
+		});
+
 		escena = new Scene(formularios, 1280, 720);
+
+		mensajes = new Mensajes();
 	}
 
 	public AnchorPane agregaTabPlanta() {

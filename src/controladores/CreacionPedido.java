@@ -121,10 +121,12 @@ public class CreacionPedido {
 	@SuppressWarnings("unchecked")
 	void registrar() {
 		contenido = true;
+		int id, diasInt;
 		Double pagoInicial = Double.parseDouble("0.0");
 		LocalDate fechaPedido;
+		String dias;
 
-		int id = Integer.parseInt(interfaz.clientesExistentes.getValue().split("-")[0].trim());
+		id = Integer.parseInt(interfaz.clientesExistentes.getValue().split("-")[0].trim());
 
 		plantas = new ArrayList<>();
 		interfaz.plantas.getTabs().forEach(t -> {
@@ -218,6 +220,23 @@ public class CreacionPedido {
 		} catch (Exception e) {
 			interfaz.pagoError.setText("Valor incorrecto");
 			interfaz.pagoError.setVisible(true);
+			contenido = false;
+		}
+
+		// En caso de que esté vacío
+		if (interfaz.diasAprox.getText().isEmpty()) {
+			interfaz.diasError.setText("Número de días requerido");
+			interfaz.diasError.setVisible(true);
+			contenido = false;
+		}
+
+		// Si no se metió una cantidad válida
+		try {
+			diasInt = Integer.parseInt(interfaz.diasAprox.getText());
+			dias = LocalDate.now().plusDays(diasInt).toString();
+		} catch (Exception e) {
+			interfaz.diasError.setText("Valor incorrecto");
+			interfaz.diasError.setVisible(true);
 			contenido = false;
 		}
 
