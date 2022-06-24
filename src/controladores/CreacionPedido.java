@@ -116,6 +116,8 @@ public class CreacionPedido {
 			}
 		}
 
+		conexionPedido = new ConexionPedido();
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -124,7 +126,7 @@ public class CreacionPedido {
 		int id, diasInt;
 		Double pagoInicial = Double.parseDouble("0.0");
 		LocalDate fechaPedido;
-		String dias;
+		String dias = "";
 
 		id = Integer.parseInt(interfaz.clientesExistentes.getValue().split("-")[0].trim());
 
@@ -197,7 +199,8 @@ public class CreacionPedido {
 
 			if (contenido) {
 				Planta p = new Planta();
-				p.setTipoHortaliza(tipoElegido);
+				// Obtener id de tipo
+				p.setTipoHortaliza(1);
 				p.setVariedad(variedad.getText());
 				p.setPrecio(precio);
 				p.setNumeroCharolas(cantidad);
@@ -253,6 +256,7 @@ public class CreacionPedido {
 		});
 		pedido.setCliente(cliente);
 		pedido.setFechaPedido(fechaPedido.toString());
+		pedido.setFechaAproximada(dias);
 		AbonoPago pagos[] = new AbonoPago[1];
 		pagos[0] = new AbonoPago();
 		pagos[0].setCantidad(pagoInicial);
@@ -261,11 +265,11 @@ public class CreacionPedido {
 		pedido.setPlantas((plantas.toArray(new Planta[0])));
 
 		if (!conexionPedido.registrarPedido(pedido)) {
-			System.err.println("Error");
+			interfaz.mensajes.error("Error al Intertar Guardar el Pedido");
 			return;
 		}
 
-		System.out.println("Exito");
+		interfaz.mensajes.mensaje("Pedido Registrado Exitosamente");
 
 		limpiaInputs();
 	}

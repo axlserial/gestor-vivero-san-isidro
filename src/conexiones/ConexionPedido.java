@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Entidades.Pedido;
+import Entidades.Planta;
 import resources.CreaConexion;
 
 public class ConexionPedido {
@@ -19,9 +20,26 @@ public class ConexionPedido {
 	public Boolean registrarPedido(Pedido pedido) {
 		String consulta = "";
 		consulta = "INSERT INTO pedidos (idCliente, fechaPedido, fechaAproximada) VALUES ";
-		consulta += "()";
+		consulta += "(" + pedido.getCliente().getIdCliente() + ", '" + pedido.getFechaPedido() + "', '"
+				+ pedido.getFechaAproximada() + "')";
 		try {
 			conexion.executeUpdate(consulta);
+			ResultSet inserts = conexion.getGeneratedKeys();
+
+			// Agregar Abono Pago
+			consulta = "INSERT INTO abonosPago (fecha, cantidad, idPedido) VALUES ";
+			consulta += "('" + pedido.getPagos()[0].getFecha() + "', " + pedido.getPagos()[0].getCantidad() + ", "
+					+ inserts.getInt(1) + ")";
+			conexion.executeUpdate(consulta);
+
+			// Agregar Plantas
+			Planta plantas[] = pedido.getPlantas();
+			for (Planta planta : plantas) {
+				consulta = "INSERT INTO plantaPedido (idTipoHortaliza, variedad, numeroCharolas, idPedido, precio) VALUES";
+				consulta += "(" + planta.getIdTipoHortaliza() + ", '" + planta.getVariedad() + "', "
+						+ planta.getNumeroCharolas() + ", " + inserts.getInt(1) + ", " + planta.getPrecio() + ")";
+				conexion.executeUpdate(consulta);
+			}
 			return true;
 		} catch (SQLException e) {
 			System.err.println(e);
