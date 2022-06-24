@@ -1,7 +1,6 @@
 package interfaces;
 
 import java.time.LocalDate;
-
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -68,7 +67,7 @@ public class BusquedaRegistrarAbono {
 		busqueda.setLayoutY(35.0);
 		busqueda.setPrefHeight(26.0);
 		busqueda.setPrefWidth(300.0);
-		busqueda.setPromptText("Ingresar # de pedido o nombre del cliente");
+		busqueda.setPromptText("Ingresar el nombre del cliente");
 
 		buscar = new Button("Buscar");
 		buscar.setLayoutX(719.0);
@@ -100,6 +99,7 @@ public class BusquedaRegistrarAbono {
 		pag.setLayoutY(88.0);
 		pag.setPrefHeight(382.0);
 		pag.setPrefWidth(1152.0);
+		pag.setPageCount(1);
 		pag.setMaxPageIndicatorCount(5);
 
 		Separator sep = new Separator();

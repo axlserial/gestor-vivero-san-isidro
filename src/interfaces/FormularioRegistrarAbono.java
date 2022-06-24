@@ -1,5 +1,6 @@
 package interfaces;
 
+import Entidades.Pedido;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -20,10 +21,16 @@ public class FormularioRegistrarAbono {
 	public Button registrar;
 	public Button cancelar;
 	public TextField pago;
+
+	private Text titulo;
+	private ScrollPane datosPedido;
+	private ScrollPane datosAbono;
+
+	public Mensajes mensajes;
 	
 	public FormularioRegistrarAbono() {
 
-		Text titulo =  new Text("Pedido #XXXX");
+		titulo = new Text();
 		titulo.setLayoutX(317.0);
 		titulo.setLayoutY(40.0);
 		titulo.setStrokeType(StrokeType.OUTSIDE);
@@ -39,7 +46,7 @@ public class FormularioRegistrarAbono {
 		infoPed.setStrokeWidth(0.0);
 		infoPed.setFont(new Font("Segoe UI", 18.0));
 
-		ScrollPane datosPedido = new ScrollPane();
+		datosPedido = new ScrollPane();
 		datosPedido.setPrefHeight(99.0);
 		datosPedido.setPrefWidth(381.0);
 
@@ -63,7 +70,7 @@ public class FormularioRegistrarAbono {
 		infoAb.setStrokeWidth(0.0);
 		infoAb.setFont(new Font("Segoe UI", 18.0));
 
-		ScrollPane datosAbono = new ScrollPane();
+		datosAbono = new ScrollPane();
 		datosAbono.setPrefHeight(99.0);
 		datosAbono.setPrefWidth(381.0);
 
@@ -137,6 +144,33 @@ public class FormularioRegistrarAbono {
 		todo.setPrefWidth(800.0);
 
 		escena = new Scene(todo, 800, 600);
+
+		mensajes = new Mensajes();
+	}
+
+	public Scene abrir(Pedido pedido) {
+		titulo.setText(String.format("Pedido #%05d", pedido.getIdPedido()));
+
+		Label dPedido = new Label("Fecha pedido: " + pedido.getFechaPedido() + "\n");
+		dPedido.setText(dPedido.getText() + "Cliente: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellidos() + "\n");
+		dPedido.setText(dPedido.getText() + "Plantas\n");
+		for (int i = 0; i < pedido.getPlantas().length; i++) {
+			dPedido.setText(dPedido.getText() + "- " + pedido.getPlantas()[i].getVariedad() + "\n");
+		}
+		dPedido.setFont(new Font("Segoe UI", 12.0));
+
+		datosPedido.setContent(dPedido);
+
+		Label dAbono = new Label();
+		for (int i = 0; i < pedido.getPagos().length; i++) {
+			dAbono.setText(dAbono.getText() + "Fecha abono: " + pedido.getPagos()[i].getFecha());
+			dAbono.setText(dAbono.getText() + "Cantidad: " + pedido.getPagos()[i].getCantidad() + "\n\n");
+		}
+		dAbono.setFont(new Font("Segoe UI", 12.0));
+
+		datosAbono.setContent(dAbono);
+
+		return getScene();
 	}
 
 	public Scene getScene(){
