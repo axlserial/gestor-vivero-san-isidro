@@ -165,17 +165,41 @@ public class FormularioRegistrarAbono {
 	}
 
 	public Scene abrir(Pedido pedido) {
-		int totalPagar = 0;
+		double totalPagar = 0, pagado = 0, restante;
+		String tipo = "";
 
 		titulo.setText(String.format("Pedido #%05d", pedido.getIdPedido()));
 
 		Label dPedido = new Label("Fecha pedido: " + pedido.getFechaPedido() + "\n");
 		dPedido.setText(dPedido.getText() + "Cliente: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellidos() + "\n");
-		dPedido.setText(dPedido.getText() + "Plantas\n");
+		dPedido.setText(dPedido.getText() + "Plantas:");
 		for (int i = 0; i < pedido.getPlantas().length; i++) {
-			
-			dPedido.setText(dPedido.getText() + "- " + pedido.getPlantas()[i].getVariedad() + "\n");
+			switch (pedido.getPlantas()[i].getIdTipoHortaliza()) {
+				case 1:
+					tipo = "Jitomate";
+					break;
+				case 2:
+					tipo = "Cebolla";
+					break;
+				case 3:
+					tipo = "Tomate de Cáscara";
+					break;
+			}
+			totalPagar += pedido.getPlantas()[i].getNumeroCharolas() * pedido.getPlantas()[i].getPrecio();
+			dPedido.setText(dPedido.getText() + 
+			"\n\t- Tipo: " + tipo + "\n" +
+			"\t- Variedad: " + pedido.getPlantas()[i].getVariedad() + "\n"
+			);
 		}
+
+		for (int i = 0; i < pedido.getPagos().length; i++) {
+			pagado += pedido.getPagos()[i].getCantidad();
+		}
+		restante = totalPagar - pagado;
+
+		totalPedido.setText("Total a pagar: " + totalPagar);
+		adRestante.setText("Adeudo restante: " + restante);
+
 		dPedido.setFont(new Font("Segoe UI", 12.0));
 
 		datosPedido.setContent(dPedido);
