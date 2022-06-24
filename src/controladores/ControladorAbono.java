@@ -1,5 +1,7 @@
 package controladores;
 
+import conexiones.ConexionClientes;
+import conexiones.ConexionPedido;
 import interfaces.BusquedaRegistrarAbono;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,6 +12,9 @@ import javafx.util.Callback;
 public class ControladorAbono {
 
 	private BusquedaRegistrarAbono interfazBusqueda;
+
+	private final ConexionPedido conexionPedido = new ConexionPedido();
+	private final ConexionClientes conexionClientes = new ConexionClientes();
 	
 	public ControladorAbono(Stage escenario, Scene anterior) {
 		interfazBusqueda = new BusquedaRegistrarAbono();

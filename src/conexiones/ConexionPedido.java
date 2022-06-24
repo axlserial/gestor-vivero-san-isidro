@@ -48,9 +48,11 @@ public class ConexionPedido {
 		}
 	}
 
-	public ResultSet buscarPedido(String nombre) {
+	public ResultSet buscarPedido(String nombre, String fechaInicial, String fechaFinal) {
 		String consulta = "";
-		consulta = "SELECT * FROM pedidos WHERE nombres LIKE '%" + nombre + "%'";
+		consulta = "SELECT P.* FROM pedidos as P INNER JOIN clientes C ON C.idCliente=P.idCliente WHERE C.nombres LIKE '%"
+				+ nombre + "%' OR C.apellidos LIKE '% " + nombre + "%' AND fechaPedido>='" + fechaInicial
+				+ "' AND fechaPedido<='" + fechaFinal + "'";
 		try {
 			return conexion.executeQuery(consulta);
 		} catch (SQLException e) {
